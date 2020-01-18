@@ -182,22 +182,24 @@ export default {
 
     .trigger-button {
       float: left;
-      margin-top: -15px;
-      margin-bottom: -15px;
+      margin-top: -5px;
+      margin-bottom: -5px;
       margin-left: 0px;
     }
   }
 
   .odd-row {
-    margin-left: 25px;
+    margin-left: 17px;
     .trigger-button {
     }
   }
 
   .hexagon2 {
-    width: 50px;
-    height: 100px;
-    margin: -20px 0 0 5px;
+    width: 34px;
+    height: 50px;
+    line-height: 50px;
+    margin: -5px 0 0 5px;
+    user-select: none;
   }
 }
 </style>
