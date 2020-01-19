@@ -190,8 +190,6 @@ export default {
 
   .odd-row {
     margin-left: 17px;
-    .trigger-button {
-    }
   }
 
   .hexagon2 {

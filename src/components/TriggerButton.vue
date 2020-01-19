@@ -2,8 +2,9 @@
   <div class="trigger-button">
     <div class="hexagon hexagon2">
       <div class="hexagon-in1">
-        <div class="hexagon-in2" @mousedown="beep">
+        <div class="hexagon-in2" v-touch:start="beep">
           {{ this.$props.note }}
+          <!-- {{ this.$data.count }} -->
         </div>
       </div>
     </div>
@@ -13,6 +14,11 @@
 <script>
 export default {
   name: "TriggerButton",
+  data() {
+    return {
+      count: 0
+    };
+  },
   props: {
     note: String,
     audioContext: AudioContext
@@ -31,9 +37,9 @@ export default {
       return 2 ** ((note - 49) / 12) * 440;
     },
     beepity(vol, freq, duration) {
-      console.log({ vol, freq, duration });
+      // console.log({ vol, freq, duration });
       let a = this.$props.audioContext;
-      console.log({ currentTime: a.currentTime });
+      // console.log({ currentTime: a.currentTime });
       let v = a.createOscillator();
       let u = a.createGain();
       v.connect(u);
@@ -45,7 +51,8 @@ export default {
       v.stop(a.currentTime + duration * 0.001);
     },
     beep() {
-      console.log("x");
+      // console.log("x");
+      this.$data.count++;
       this.beepity(80, this.noteToFreq(this.$props.note), 80);
     }
   }
