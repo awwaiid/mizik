@@ -2,9 +2,17 @@
   <div class="trigger-button">
     <div class="hexagon hexagon2">
       <div class="hexagon-in1">
-        <div class="hexagon-in2" v-touch:start="beep">
-          {{ this.$props.note }}
-          <!-- {{ this.$data.count }} -->
+        <div
+          class="hexagon-in2"
+          v-touch:start="onTouchStart"
+          v-touch:end="onTouchEnd"
+          @mousedown="onMouseDown"
+          @mouseup="onMouseUp"
+          @keypress="onKeyPress"
+          v-touch:tap="onTouchTap"
+        >
+          <span v-if="showCount">{{ this.$data.count }}</span>
+          <span v-else>{{ this.$props.note }}</span>
         </div>
       </div>
     </div>
@@ -16,12 +24,14 @@ export default {
   name: "TriggerButton",
   data() {
     return {
-      count: 0
+      count: 0,
+      osc: undefined
     };
   },
   props: {
     note: String,
-    audioContext: AudioContext
+    audioContext: AudioContext,
+    showCount: Boolean
   },
   // data() {
   //   return {
@@ -29,18 +39,17 @@ export default {
   //   };
   // },
   // created() {
-  //   let a = new AudioContext(); // browsers limit the number of concurrent audio contexts, so you better re-use'em
-  //   this.$data.audoContext = a;
   // },
   methods: {
     noteToFreq(note) {
       return 2 ** ((note - 49) / 12) * 440;
     },
-    beepity(vol, freq, duration) {
+    beepity(vol, freq) {
       // console.log({ vol, freq, duration });
       let a = this.$props.audioContext;
       // console.log({ currentTime: a.currentTime });
       let v = a.createOscillator();
+      this.osc = v;
       let u = a.createGain();
       v.connect(u);
       v.frequency.value = freq;
@@ -48,12 +57,32 @@ export default {
       u.connect(a.destination);
       u.gain.value = vol * 0.01;
       v.start(a.currentTime);
-      v.stop(a.currentTime + duration * 0.001);
+      // v.stop(a.currentTime + duration * 0.001);
     },
-    beep() {
-      // console.log("x");
+    onMouseDown() {
+      console.log("mouseDown");
+    },
+    onMouseUp() {
+      console.log("mouseUp");
+    },
+    onTouchTap() {
+      console.log("touch tap");
+    },
+    onTouchStart() {
+      console.log("touch start");
       this.$data.count++;
-      this.beepity(80, this.noteToFreq(this.$props.note), 80);
+      this.beepity(80, this.noteToFreq(this.$props.note));
+    },
+    onTouchEnd() {
+      console.log("touch end!");
+      this.$data.count--;
+      this.osc.stop(this.audioContext.currentTime);
+    },
+    onKeyPress(event) {
+      if (event.charCode - 40 == this.note) {
+        this.beepity(80, this.noteToFreq(this.$props.note));
+        this.osc.stop(this.audioContext.currentTime + 1);
+      }
     }
   }
 };
