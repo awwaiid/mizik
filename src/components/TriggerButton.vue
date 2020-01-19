@@ -89,17 +89,11 @@ export default {
   background-repeat: no-repeat;
   background-position: 50%;
   /* background-image: url(http://placekitten.com/240/240); */
-  background-color: red;
   visibility: visible;
   -webkit-transform: rotate(-60deg);
   -moz-transform: rotate(-60deg);
   -ms-transform: rotate(-60deg);
   -o-transform: rotate(-60deg);
   transform: rotate(-60deg);
-}
-
-.hexagon-in2:hover {
-  /* background-image: url(http://placekitten.com/241/241); */
-  background-color: green;
 }
 </style>
