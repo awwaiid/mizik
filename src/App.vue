@@ -631,7 +631,7 @@
       </div>
     </div>
 
-    <div style="clear:both">
+    <div class="options-block" style="clear:both">
       <h2>Options</h2>
       <div>
         <label>
@@ -644,6 +644,11 @@
           <input type="checkbox" v-model="showCounts" />
           Show click counts
         </label>
+      </div>
+      <div>
+        Visit
+        <a href="https://github.com/awwaiid/sample-mob/">GitHub Project</a> for
+        more info.
       </div>
     </div>
   </div>
@@ -711,6 +716,13 @@ export default {
   .hexagon-in2:hover {
     /* background-image: url(http://placekitten.com/241/241); */
     background-color: green;
+  }
+
+  .options-block {
+    padding-top: 2em;
+    h2 {
+      margin: 0 0 0.5em 0;
+    }
   }
 }
 </style>
