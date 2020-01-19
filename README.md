@@ -2,6 +2,8 @@
 
 Playing around with WebAudio and mobile interactions. I'm taking inspiration from the very fun [Teenage Engineering PO-33](https://teenage.engineering/store/po-33) and other weird things ([Wicki-Hayden Keyboard](https://en.m.wikipedia.org/wiki/Wicki-Hayden_note_layout)). I'll push demo builds to [https://awwaiid.github.io/sample-mob-web/](https://awwaiid.github.io/sample-mob-web/).
 
+![Screenshot](public/screenshot.png?raw=true "Screenshot")
+
 ## Ideas
 
 * Sample directly from mic/input on device
