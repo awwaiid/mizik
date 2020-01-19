@@ -673,7 +673,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
+
+  * {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
 
   .odd-row,
   .even-row {
@@ -697,7 +701,6 @@ export default {
     line-height: 80px;
     text-align: center;
     margin: -5px 0 0 5px;
-    user-select: none;
   }
   .black-keys .hexagon-in2 {
     background-color: #88f;
