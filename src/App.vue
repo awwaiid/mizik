@@ -6,16 +6,19 @@
           note="70"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="72"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="74"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -24,16 +27,19 @@
           note="76"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="78"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="80"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -42,16 +48,19 @@
           note="82"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="84"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="86"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -61,16 +70,19 @@
           note="63"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="65"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="67"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -79,21 +91,25 @@
           note="69"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="71"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="73"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="75"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -102,16 +118,19 @@
           note="77"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="79"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="81"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -121,16 +140,19 @@
           note="58"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="60"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="62"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -139,16 +161,19 @@
           note="64"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="66"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="68"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -157,16 +182,19 @@
           note="70"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="72"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="74"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -176,16 +204,19 @@
           note="51"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="53"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="55"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -194,21 +225,25 @@
           note="57"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="59"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="61"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="63"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -217,16 +252,19 @@
           note="65"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="67"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="69"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -236,16 +274,19 @@
           note="46"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="48"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="50"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -254,16 +295,19 @@
           note="52"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="54"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="56"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -272,16 +316,19 @@
           note="58"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="60"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="62"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -291,16 +338,19 @@
           note="39"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="41"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="43"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -309,21 +359,25 @@
           note="45"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="47"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="49"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="51"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -332,16 +386,19 @@
           note="53"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="55"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="57"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -351,16 +408,19 @@
           note="34"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="36"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="38"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -369,16 +429,19 @@
           note="40"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="42"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="44"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -387,16 +450,19 @@
           note="46"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="48"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="50"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -406,16 +472,19 @@
           note="27"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="29"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="31"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -424,21 +493,25 @@
           note="33"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="35"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="37"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="39"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -447,16 +520,19 @@
           note="41"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="43"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="45"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -466,16 +542,19 @@
           note="22"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="24"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="26"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -484,16 +563,19 @@
           note="28"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="30"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="32"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -502,16 +584,19 @@
           note="34"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="36"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="38"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -521,16 +606,19 @@
           note="15"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="17"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="19"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -539,21 +627,25 @@
           note="21"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="23"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="25"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="27"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -562,16 +654,19 @@
           note="29"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="31"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="33"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -581,16 +676,19 @@
           note="10"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="12"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="14"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -599,16 +697,19 @@
           note="16"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="18"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="20"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
 
@@ -617,16 +718,19 @@
           note="22"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="24"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
         <TriggerButton
           note="26"
           :audio-context="audioContext"
           :show-count="showCounts"
+          @clicked="addHistory"
         />
       </div>
     </div>
@@ -650,12 +754,20 @@
         <a href="https://github.com/awwaiid/sample-mob/">GitHub Project</a> for
         more info.
       </div>
+      <div class="history">
+        <div v-for="note in noteHistory" v-bind:key="note.id">
+          <HexButton
+            ><div class="hmm">{{ note }}</div></HexButton
+          >
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import TriggerButton from "./components/TriggerButton.vue";
+import HexButton from "./components/HexButton.vue";
 
 export default {
   name: "app",
@@ -663,11 +775,18 @@ export default {
     return {
       audioContext: new AudioContext(),
       showAllKeys: false,
-      showCounts: false
+      showCounts: false,
+      noteHistory: []
     };
   },
   components: {
-    TriggerButton
+    TriggerButton,
+    HexButton
+  },
+  methods: {
+    addHistory(note) {
+      this.noteHistory.push(note);
+    }
   }
 };
 </script>
@@ -714,7 +833,6 @@ export default {
     background-color: #ccf;
   }
   .hexagon-in2:hover {
-    /* background-image: url(http://placekitten.com/241/241); */
     background-color: green;
   }
 
@@ -723,6 +841,16 @@ export default {
     h2 {
       margin: 0 0 0.5em 0;
     }
+  }
+
+  .hmm {
+    background-color: #cfc;
+  }
+  .history .hexagon {
+    float: left;
+    margin-top: -14px;
+    margin-bottom: -14px;
+    margin-left: 5px;
   }
 }
 </style>

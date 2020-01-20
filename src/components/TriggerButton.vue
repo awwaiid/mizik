@@ -1,27 +1,29 @@
 <template>
   <div class="trigger-button">
-    <div class="hexagon hexagon2">
-      <div class="hexagon-in1">
-        <div
-          class="hexagon-in2"
-          v-touch:start="onTouchStart"
-          v-touch:end="onTouchEnd"
-          @mousedown="onMouseDown"
-          @mouseup="onMouseUp"
-          @keypress="onKeyPress"
-          v-touch:tap="onTouchTap"
-        >
-          <span v-if="showCount">{{ this.$data.count }}</span>
-          <span v-else>{{ this.$props.note }}</span>
-        </div>
+    <HexButton>
+      <div
+        v-touch:start="onTouchStart"
+        v-touch:end="onTouchEnd"
+        @mousedown="onMouseDown"
+        @mouseup="onMouseUp"
+        @keypress="onKeyPress"
+        v-touch:tap="onTouchTap"
+      >
+        <span v-if="showCount">{{ this.$data.count }}</span>
+        <span v-else>{{ this.$props.note }}</span>
       </div>
-    </div>
+    </HexButton>
   </div>
 </template>
 
 <script>
+import HexButton from "./HexButton.vue";
+
 export default {
   name: "TriggerButton",
+  components: {
+    HexButton
+  },
   data() {
     return {
       count: 0,
@@ -72,6 +74,7 @@ export default {
       console.log("touch start");
       this.$data.count++;
       this.beepity(80, this.noteToFreq(this.$props.note));
+      this.$emit("clicked", this.$props.note);
     },
     onTouchEnd() {
       console.log("touch end!");
@@ -87,42 +90,3 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-.hexagon {
-  overflow: hidden;
-  visibility: hidden;
-  -webkit-transform: rotate(120deg);
-  -moz-transform: rotate(120deg);
-  -ms-transform: rotate(120deg);
-  -o-transform: rotate(120deg);
-  transform: rotate(120deg);
-  cursor: pointer;
-}
-
-.hexagon-in1 {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  -webkit-transform: rotate(-60deg);
-  -moz-transform: rotate(-60deg);
-  -ms-transform: rotate(-60deg);
-  -o-transform: rotate(-60deg);
-  transform: rotate(-60deg);
-}
-
-.hexagon-in2 {
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: 50%;
-  /* background-image: url(http://placekitten.com/240/240); */
-  visibility: visible;
-  -webkit-transform: rotate(-60deg);
-  -moz-transform: rotate(-60deg);
-  -ms-transform: rotate(-60deg);
-  -o-transform: rotate(-60deg);
-  transform: rotate(-60deg);
-}
-</style>
