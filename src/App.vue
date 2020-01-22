@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="odd-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="70"
           :audio-context="audioContext"
@@ -65,7 +65,7 @@
       </div>
     </div>
     <div class="even-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="63"
           :audio-context="audioContext"
@@ -135,7 +135,7 @@
       </div>
     </div>
     <div class="odd-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="58"
           :audio-context="audioContext"
@@ -199,7 +199,7 @@
       </div>
     </div>
     <div class="even-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="51"
           :audio-context="audioContext"
@@ -269,7 +269,7 @@
       </div>
     </div>
     <div class="odd-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="46"
           :audio-context="audioContext"
@@ -333,7 +333,7 @@
       </div>
     </div>
     <div class="even-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="39"
           :audio-context="audioContext"
@@ -403,7 +403,7 @@
       </div>
     </div>
     <div class="odd-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="34"
           :audio-context="audioContext"
@@ -467,21 +467,24 @@
       </div>
     </div>
     <div class="even-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="27"
+          keyboardKey="a"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="29"
+          keyboardKey="s"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="31"
+          keyboardKey="d"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
@@ -491,24 +494,28 @@
       <div class="white-keys">
         <TriggerButton
           note="33"
+          keyboardKey="f"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="35"
+          keyboardKey="g"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="37"
+          keyboardKey="h"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="39"
+          keyboardKey="j"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
@@ -518,18 +525,21 @@
       <div class="black-keys">
         <TriggerButton
           note="41"
+          keyboardKey="k"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="43"
+          keyboardKey="l"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="45"
+          keyboardKey=";"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
@@ -537,21 +547,24 @@
       </div>
     </div>
     <div class="odd-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="22"
+          keyboardKey="z"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="24"
+          keyboardKey="x"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="26"
+          keyboardKey="c"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
@@ -561,18 +574,21 @@
       <div class="white-keys">
         <TriggerButton
           note="28"
+          keyboardKey="v"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="30"
+          keyboardKey="b"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="32"
+          keyboardKey="n"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
@@ -582,18 +598,21 @@
       <div class="black-keys">
         <TriggerButton
           note="34"
+          keyboardKey="m"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="36"
+          keyboardKey=","
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="38"
+          keyboardKey="."
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
@@ -601,7 +620,7 @@
       </div>
     </div>
     <div class="even-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="15"
           :audio-context="audioContext"
@@ -671,7 +690,7 @@
       </div>
     </div>
     <div class="odd-row">
-      <div class="black-keys" v-if="showAllKeys">
+      <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="10"
           :audio-context="audioContext"
@@ -754,11 +773,12 @@
         <a href="https://github.com/awwaiid/sample-mob/">GitHub Project</a> for
         more info.
       </div>
+      <div>Latency: {{ curLatency }}</div>
       <div class="history">
         <div v-for="note in noteHistory" v-bind:key="note.id">
-          <HexButton
-            ><div class="hmm">{{ note }}</div></HexButton
-          >
+          <HexButton>
+            <div class="hmm">{{ note }}</div>
+          </HexButton>
         </div>
       </div>
     </div>
@@ -776,7 +796,8 @@ export default {
       audioContext: new AudioContext(),
       showAllKeys: false,
       showCounts: false,
-      noteHistory: []
+      noteHistory: [],
+      curLatency: 0
     };
   },
   components: {
@@ -785,7 +806,9 @@ export default {
   },
   methods: {
     addHistory(note) {
-      this.noteHistory.push(note);
+      this.curLatency = note;
+      this.$forceUpdate();
+      // this.noteHistory.push(note);
     }
   }
 };
@@ -832,9 +855,9 @@ export default {
   .white-keys .hexagon-in2 {
     background-color: #ccf;
   }
-  .hexagon-in2:hover {
-    background-color: green;
-  }
+  /* .hexagon-in2:hover { */
+  /*   background-color: green; */
+  /* } */
 
   .options-block {
     padding-top: 2em;

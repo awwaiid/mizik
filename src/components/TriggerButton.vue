@@ -6,8 +6,8 @@
         v-touch:end="onTouchEnd"
         @mousedown="onMouseDown"
         @mouseup="onMouseUp"
-        @keypress="onKeyPress"
         v-touch:tap="onTouchTap"
+        :class="{ active: isActive }"
       >
         <span v-if="showCount">{{ this.$data.count }}</span>
         <span v-else>{{ this.$props.note }}</span>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import * as Tone from "tone";
 import HexButton from "./HexButton.vue";
 
 export default {
@@ -27,39 +28,44 @@ export default {
   data() {
     return {
       count: 0,
-      osc: undefined
+      synth: undefined,
+      boundKeys: false,
+      isActive: false
     };
   },
   props: {
     note: String,
+    keyboardKey: String,
     audioContext: AudioContext,
     showCount: Boolean
   },
-  // data() {
-  //   return {
-  //     audioContext: new AudioContext()
-  //   };
-  // },
-  // created() {
-  // },
+  mounted() {
+    if (!this.boundKeys) {
+      window.addEventListener("keydown", e => {
+        this.onKeyDown(e);
+      });
+      window.addEventListener("keyup", e => {
+        this.onKeyUp(e);
+      });
+      this.boundKeys = true;
+    }
+  },
+  created() {
+    this.synth = new Tone.Synth({
+      oscillator: {
+        type: "triangle"
+      },
+      envelope: {
+        attack: 0.001,
+        decay: 0.1,
+        sustain: 0.3,
+        release: 1
+      }
+    }).toMaster();
+  },
   methods: {
     noteToFreq(note) {
       return 2 ** ((note - 49) / 12) * 440;
-    },
-    beepity(vol, freq) {
-      // console.log({ vol, freq, duration });
-      let a = this.$props.audioContext;
-      // console.log({ currentTime: a.currentTime });
-      let v = a.createOscillator();
-      this.osc = v;
-      let u = a.createGain();
-      v.connect(u);
-      v.frequency.value = freq;
-      v.type = "square";
-      u.connect(a.destination);
-      u.gain.value = vol * 0.01;
-      v.start(a.currentTime);
-      // v.stop(a.currentTime + duration * 0.001);
     },
     onMouseDown() {
       console.log("mouseDown");
@@ -72,21 +78,36 @@ export default {
     },
     onTouchStart() {
       console.log("touch start");
-      this.$data.count++;
-      this.beepity(80, this.noteToFreq(this.$props.note));
-      this.$emit("clicked", this.$props.note);
+      this.count++;
+      this.isActive = true;
+      this.synth.triggerAttack(this.noteToFreq(this.$props.note));
     },
     onTouchEnd() {
       console.log("touch end!");
-      this.$data.count--;
-      this.osc.stop(this.audioContext.currentTime);
+      this.count--;
+      this.synth.triggerRelease();
+      this.isActive = false;
     },
-    onKeyPress(event) {
-      if (event.charCode - 40 == this.note) {
-        this.beepity(80, this.noteToFreq(this.$props.note));
-        this.osc.stop(this.audioContext.currentTime + 1);
+    onKeyDown(event) {
+      if (this.keyboardKey && event.key == this.keyboardKey) {
+        console.log("keypress!");
+        this.isActive = true;
+        this.synth.triggerAttack(this.noteToFreq(this.$props.note));
+      }
+    },
+    onKeyUp(event) {
+      if (this.keyboardKey && event.key == this.keyboardKey) {
+        console.log("keyup!");
+        this.isActive = false;
+        this.synth.triggerRelease();
       }
     }
   }
 };
 </script>
+
+<style scoped lang="scss">
+.active {
+  background-color: #51e2ec;
+}
+</style>
