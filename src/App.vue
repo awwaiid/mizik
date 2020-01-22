@@ -406,18 +406,21 @@
       <div class="black-keys" v-show="showAllKeys">
         <TriggerButton
           note="34"
+          keyboardKey="w"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="36"
+          keyboardKey="e"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="38"
+          keyboardKey="r"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
@@ -427,18 +430,21 @@
       <div class="white-keys">
         <TriggerButton
           note="40"
+          keyboardKey="t"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="42"
+          keyboardKey="y"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="44"
+          keyboardKey="u"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
@@ -448,18 +454,21 @@
       <div class="black-keys">
         <TriggerButton
           note="46"
+          keyboardKey="i"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="48"
+          keyboardKey="o"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
         />
         <TriggerButton
           note="50"
+          keyboardKey="p"
           :audio-context="audioContext"
           :show-count="showCounts"
           @clicked="addHistory"
