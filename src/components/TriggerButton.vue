@@ -102,6 +102,13 @@ export default {
         this.isActive = false;
         this.synth.triggerRelease();
       }
+    },
+    trigger(duration) {
+      this.isActive = true;
+      this.synth.triggerAttackRelease(
+        this.noteToFreq(this.$props.note),
+        duration
+      );
     }
   }
 };
