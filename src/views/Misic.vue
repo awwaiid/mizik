@@ -195,9 +195,7 @@
       <button @click="startOver">
         Start Over
       </button>
-      <button @click="playSequence">
-        Keep Going
-      </button>
+      <div>High Score: {{ highScore }}</div>
       <div class="game-over" v-if="!winning">
         GAME OVER!<br />
         Final score: {{ score }}
@@ -259,7 +257,8 @@ export default {
       current: [],
       currentPlaying: [],
       winning: true,
-      score: 0
+      score: 0,
+      highScore: 0
     };
   },
   components: {
@@ -296,6 +295,9 @@ export default {
       );
       if (this.winning && this.noteHistory.length == this.current.length) {
         this.score = this.noteHistory.length;
+        if (this.score > this.highScore) {
+          this.highScore = this.score;
+        }
         setTimeout(() => this.playSequence(), 1000);
       }
       if (!this.winning) {
