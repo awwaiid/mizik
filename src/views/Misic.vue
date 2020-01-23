@@ -1,27 +1,6 @@
 <template>
   <div id="app">
     <div class="odd-row">
-      <div class="black-keys" v-show="showAllKeys">
-        <TriggerButton
-          note="46"
-          ref="button46"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-        <TriggerButton
-          note="48"
-          ref="button48"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-        <TriggerButton
-          note="50"
-          ref="button50"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-      </div>
-
       <div class="white-keys">
         <TriggerButton
           note="52"
@@ -65,27 +44,6 @@
       </div>
     </div>
     <div class="even-row">
-      <div class="black-keys" v-show="showAllKeys">
-        <TriggerButton
-          note="39"
-          ref="button39"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-        <TriggerButton
-          note="41"
-          ref="button41"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-        <TriggerButton
-          note="43"
-          ref="button43"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-      </div>
-
       <div class="white-keys">
         <TriggerButton
           note="45"
@@ -135,30 +93,6 @@
       </div>
     </div>
     <div class="odd-row">
-      <div class="black-keys" v-show="showAllKeys">
-        <TriggerButton
-          note="34"
-          ref="button34"
-          keyboardKey="w"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-        <TriggerButton
-          note="36"
-          ref="button36"
-          keyboardKey="e"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-        <TriggerButton
-          note="38"
-          ref="button38"
-          keyboardKey="r"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-      </div>
-
       <div class="white-keys">
         <TriggerButton
           note="40"
@@ -208,30 +142,6 @@
       </div>
     </div>
     <div class="even-row">
-      <div class="black-keys" v-show="showAllKeys">
-        <TriggerButton
-          note="27"
-          ref="button27"
-          keyboardKey="a"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-        <TriggerButton
-          note="29"
-          ref="button29"
-          keyboardKey="s"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-        <TriggerButton
-          note="31"
-          ref="button31"
-          keyboardKey="d"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
-      </div>
-
       <div class="white-keys">
         <TriggerButton
           note="33"
@@ -278,32 +188,22 @@
           :show-count="showCounts"
           @clicked="addHistory"
         />
-        <TriggerButton
-          note="45"
-          ref="button45"
-          keyboardKey=";"
-          :show-count="showCounts"
-          @clicked="addHistory"
-        />
       </div>
     </div>
 
     <div class="options-block" style="clear:both">
       <h2>Options</h2>
-      <div>
-        <label>
-          <input type="checkbox" v-model="showAllKeys" />
-          Show all keys
-        </label>
-      </div>
-      <div>
-        <label>
-          <input type="checkbox" v-model="showCounts" />
-          Show click counts
-        </label>
+      <div @click="startOver">
+        Start Over
       </div>
       <div @click="playSequence">
-        playstuff
+        Keep Going
+      </div>
+      <div v-if="winning">
+        Winning....
+      </div>
+      <div v-else>
+        BONG!
       </div>
       <div>
         Visit
@@ -351,17 +251,17 @@ export default {
         44: [49, 42, 37, 39, 46, 51],
         46: [51, 44, 39, 41, 48, 53],
         48: [53, 46, 41, 43, 50, 55],
-        50: [55, 48, 43, 45],
+        50: [55, 48, 43],
         33: [35, 40],
         35: [40, 33, 37, 42],
         37: [42, 35, 39, 44],
         39: [44, 37, 41, 46],
         41: [46, 39, 43, 48],
-        43: [48, 41, 45, 50]
+        43: [48, 41, 50]
       },
-      // 45: [50, 43]
       current: [],
-      currentPlaying: []
+      currentPlaying: [],
+      winning: true
     };
   },
   components: {
@@ -369,7 +269,13 @@ export default {
     HexButton
   },
   methods: {
+    startOver() {
+      this.current = [];
+      this.playSequence();
+    },
     playSequence() {
+      this.noteHistory = [];
+      this.winning = true;
       this.addNote();
       this.currentPlaying = this.current.slice();
       this.playNext(200);
@@ -383,6 +289,12 @@ export default {
     },
     addHistory(note) {
       this.noteHistory.push(note);
+      this.winning = this.noteHistory.every(
+        (value, index) => value == this.current[index]
+      );
+      if (this.winning && this.noteHistory.length == this.current.length) {
+        setTimeout(() => this.playSequence(), 1000);
+      }
     },
     randomEntry(items) {
       return items[Math.floor(Math.random() * items.length)];
