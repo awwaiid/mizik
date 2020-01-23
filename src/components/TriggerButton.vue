@@ -36,7 +36,6 @@ export default {
   props: {
     note: String,
     keyboardKey: String,
-    audioContext: AudioContext,
     showCount: Boolean
   },
   mounted() {
@@ -78,6 +77,7 @@ export default {
     },
     onTouchStart() {
       console.log("touch start");
+      this.$emit("clicked", this.note);
       this.count++;
       this.isActive = true;
       this.synth.triggerAttack(this.noteToFreq(this.$props.note));
@@ -91,6 +91,7 @@ export default {
     onKeyDown(event) {
       if (this.keyboardKey && event.key == this.keyboardKey) {
         console.log("keypress!");
+        this.$emit("clicked", this.note);
         this.isActive = true;
         this.synth.triggerAttack(this.noteToFreq(this.$props.note));
       }
