@@ -192,18 +192,15 @@
     </div>
 
     <div class="options-block" style="clear:both">
-      <h2>Options</h2>
-      <div @click="startOver">
+      <button @click="startOver">
         Start Over
-      </div>
-      <div @click="playSequence">
+      </button>
+      <button @click="playSequence">
         Keep Going
-      </div>
-      <div v-if="winning">
-        Winning....
-      </div>
-      <div v-else>
-        BONG!
+      </button>
+      <div class="game-over" v-if="!winning">
+        GAME OVER!<br />
+        Final score: {{ score }}
       </div>
       <div>
         Visit
@@ -261,7 +258,8 @@ export default {
       },
       current: [],
       currentPlaying: [],
-      winning: true
+      winning: true,
+      score: 0
     };
   },
   components: {
@@ -271,6 +269,10 @@ export default {
   methods: {
     startOver() {
       this.current = [];
+      this.score = 0;
+      Object.keys(this.adjacent).forEach(note => {
+        this.$refs["button" + note].reset();
+      });
       this.playSequence();
     },
     playSequence() {
@@ -293,7 +295,13 @@ export default {
         (value, index) => value == this.current[index]
       );
       if (this.winning && this.noteHistory.length == this.current.length) {
+        this.score = this.noteHistory.length;
         setTimeout(() => this.playSequence(), 1000);
+      }
+      if (!this.winning) {
+        // Reset the last note in case it doesn't get
+        // a touch-release
+        this.$refs["button" + note].unTrigger();
       }
     },
     randomEntry(items) {
@@ -370,6 +378,13 @@ export default {
     margin-top: -14px;
     margin-bottom: -14px;
     margin-left: 5px;
+  }
+  .game-over {
+    position: absolute;
+    top: 150px;
+    left: 120px;
+    padding: 20px;
+    background-color: crimson;
   }
 }
 </style>

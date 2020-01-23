@@ -135,6 +135,15 @@ export default {
         this.noteToFreq(this.$props.note),
         duration
       );
+    },
+    unTrigger() {
+      console.log("force clear");
+      this.isActive = false;
+      setTimeout(() => this.synth.triggerRelease());
+    },
+    reset() {
+      this.isActive = false;
+      this.count = 0;
     }
   }
 };
