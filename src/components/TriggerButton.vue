@@ -7,6 +7,7 @@
         @mousedown="onMouseDown"
         @mouseup="onMouseUp"
         v-touch:tap="onTouchTap"
+        :style="{ backgroundColor: countColor }"
         :class="{ active: isActive }"
       >
         <span v-if="showCount">{{ this.$data.count }}</span>
@@ -33,10 +34,31 @@ export default {
       isActive: false
     };
   },
+  computed: {
+    countColor() {
+      return [
+        "#51e2ec",
+        "#31c2cc",
+        "#11a2ac",
+        "#01828c",
+        "#01a26c",
+        "#01a24C",
+        "#01c24c",
+        "#01e24c",
+        "#01e26c",
+        "#01e28c",
+        "#01e2ac",
+        "#01e2cc",
+        "#21e2cc",
+        "#41e2cc"
+      ][this.count - 1];
+    }
+  },
   props: {
     note: String,
     keyboardKey: String,
-    showCount: Boolean
+    showCount: Boolean,
+    backgroundColor: String
   },
   mounted() {
     if (!this.boundKeys) {
@@ -78,15 +100,18 @@ export default {
     onTouchStart() {
       console.log("touch start");
       this.$emit("clicked", this.note);
-      this.count++;
+      // this.count++;
       this.isActive = true;
       this.synth.triggerAttack(this.noteToFreq(this.$props.note));
     },
     onTouchEnd() {
       console.log("touch end!");
       this.count--;
+      if (this.count <= 0) {
+        this.count = 0;
+        this.isActive = false;
+      }
       this.synth.triggerRelease();
-      this.isActive = false;
     },
     onKeyDown(event) {
       if (this.keyboardKey && event.key == this.keyboardKey) {
@@ -104,7 +129,8 @@ export default {
       }
     },
     trigger(duration) {
-      this.isActive = true;
+      // this.isActive = true;
+      this.count++;
       this.synth.triggerAttackRelease(
         this.noteToFreq(this.$props.note),
         duration

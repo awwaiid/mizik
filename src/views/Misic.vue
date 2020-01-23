@@ -230,7 +230,7 @@ export default {
   data() {
     return {
       showAllKeys: false,
-      showCounts: false,
+      showCounts: true,
       noteHistory: [],
       adjacent: {
         52: [45, 47, 54],
