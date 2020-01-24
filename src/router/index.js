@@ -26,10 +26,10 @@ const routes = [
       import(/* webpackChunkName: "synth" */ "../views/Synth.vue")
   },
   {
-    path: "/misic",
-    name: "misic",
+    path: "/mizik",
+    name: "mizik",
     component: () =>
-      import(/* webpackChunkName: "synth" */ "../views/Misic.vue")
+      import(/* webpackChunkName: "synth" */ "../views/Mizik.vue")
   }
 ];
 

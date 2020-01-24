@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/synth">Synth</router-link> |
-      <router-link to="/misic">Misic</router-link>
+      <router-link to="/mizik">Mizik</router-link>
     </div>
     <router-view />
   </div>
