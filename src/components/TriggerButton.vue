@@ -55,7 +55,7 @@ export default {
     }
   },
   props: {
-    note: String,
+    note: Number,
     keyboardKey: String,
     showCount: Boolean,
     backgroundColor: String

@@ -720,6 +720,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  margin: 0 auto;
+  width: 95vmin;
+  border: 1px solid red;
 
   * {
     user-select: none;
@@ -732,32 +735,32 @@ export default {
 
     .trigger-button {
       float: left;
-      margin-top: -14px;
-      margin-bottom: -14px;
-      margin-left: 0px;
+      margin-top: -2vmin; /* 1/4 width */
     }
   }
 
   .odd-row {
-    margin-left: 26px;
+    border: 1px solid green;
+    margin-left: 4.5vmin; /* 1/2 width + 1 margin */
   }
 
-  .hexagon2 {
-    width: 48px;
+  .hexagon-container {
+    margin: 0.5vmin;
+  }
+
+  .hexagon {
+    /*    width: 48px;
     height: 80px;
     line-height: 80px;
     text-align: center;
-    margin: -5px 0 0 5px;
+    margin: -5px 0 0 5px; */
   }
-  .black-keys .hexagon-in2 {
+  .black-keys .hexagon {
     background-color: #88f;
   }
-  .white-keys .hexagon-in2 {
+  .white-keys .hexagon {
     background-color: #ccf;
   }
-  /* .hexagon-in2:hover { */
-  /*   background-color: green; */
-  /* } */
 
   .options-block {
     padding-top: 2em;
