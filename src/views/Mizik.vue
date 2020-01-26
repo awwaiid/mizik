@@ -164,6 +164,12 @@ export default {
 
   --hexagon-size: 13vw;
 
+  .button-row {
+    display: flex;
+    justify-content: center;
+    margin-top: calc(-1 * var(--hexagon-size) / 3.6);
+  }
+
   .hexagon {
     margin: 2px;
     --background-color: #ccf;
@@ -182,19 +188,13 @@ export default {
     margin: 5px;
     --background-color: #cfc;
   }
+
   .game-over {
     position: absolute;
     top: 150px;
     left: 120px;
     padding: 20px;
     background-color: crimson;
-  }
-
-  .button-row {
-    display: flex;
-    justify-content: center;
-    margin-top: calc(-1 * var(--hexagon-size) / 3.6);
-    border: 1px dashed green;
   }
 }
 </style>

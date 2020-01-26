@@ -11,6 +11,7 @@
         :class="{ active: isActive }"
       >
         <span v-if="showCount">{{ this.$data.count }}</span>
+        <span v-else-if="label">{{ this.$props.label }}</span>
         <span v-else>{{ this.$props.note }}</span>
       </div>
     </HexButton>
@@ -58,7 +59,8 @@ export default {
     note: Number,
     keyboardKey: String,
     showCount: Boolean,
-    backgroundColor: String
+    backgroundColor: String,
+    label: String
   },
   mounted() {
     if (!this.boundKeys) {
