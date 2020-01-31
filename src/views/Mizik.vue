@@ -9,6 +9,7 @@
           :note="note"
           :show-count="showCounts"
           @clicked="addHistory"
+          orientation="row"
         />
       </div>
     </div>
@@ -54,6 +55,21 @@ export default {
         [45, 47, 49, 51, 53, 55, 57],
         [40, 42, 44, 46, 48, 50],
         [35, 37, 39, 41, 43]
+      ],
+      layoutVertical: [
+        [45, 57],
+        [0, 50, 62],
+        [43, 55],
+        [0, 48, 60],
+        [41, 53],
+        [0, 46, 58],
+        [39, 51],
+        [0, 44, 56],
+        [37, 49],
+        [0, 42, 54],
+        [35, 47],
+        [0, 40, 52],
+        [33, 45]
       ],
       adjacent: {
         52: [45, 47, 54],
@@ -168,10 +184,12 @@ export default {
     display: flex;
     justify-content: center;
     margin-top: calc(-1 * var(--hexagon-size) / 3.6);
+    /* margin-top: calc(-1 * var(--hexagon-size) / 2); */
   }
 
   .hexagon {
     margin: 2px;
+    /* margin-left: calc(var(--hexagon-size) / 1.5); */
     --background-color: #ccf;
     --hexagon-size: 13vw;
   }
