@@ -1,6 +1,6 @@
 <template>
   <div class="trigger-button">
-    <HexButton>
+    <HexButton :orientation="orientation">
       <div
         v-touch:start="onTouchStart"
         v-touch:end="onTouchEnd"
@@ -60,7 +60,8 @@ export default {
     keyboardKey: String,
     showCount: Boolean,
     backgroundColor: String,
-    label: String
+    label: String,
+    orientation: String
   },
   mounted() {
     if (!this.boundKeys) {

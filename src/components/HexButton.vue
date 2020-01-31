@@ -1,7 +1,7 @@
 <template>
   <div class="hexagon">
-    <div class="hexagon-border">
-      <div class="hexagon-content">
+    <div class="hexagon-border" :style="clipPathStyle">
+      <div class="hexagon-content" :style="clipPathStyle">
         <slot></slot>
       </div>
     </div>
@@ -10,7 +10,25 @@
 
 <script>
 export default {
-  name: "HexButton"
+  name: "HexButton",
+  props: {
+    orientation: { default: "row" }
+  },
+  computed: {
+    clipPathStyle() {
+      if (this.orientation == "row") {
+        return {
+          clipPath:
+            "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)"
+        };
+      } else {
+        return {
+          clipPath:
+            "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)"
+        };
+      }
+    }
+  }
 };
 </script>
 
@@ -31,8 +49,6 @@ export default {
   height: var(--hexagon-size);
   line-height: var(--hexagon-size);
   position: relative;
-  /* clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); */
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
 .hexagon-content {
@@ -44,8 +60,6 @@ export default {
   height: calc(var(--hexagon-size) - var(--border-size) * 2);
   line-height: var(--hexagon-size);
   position: absolute;
-  /* clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); */
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
 .drop-shadow {
