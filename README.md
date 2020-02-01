@@ -6,10 +6,33 @@ Playing around with WebAudio and mobile interactions. I'm taking inspiration fro
 
 ## Ideas
 
+Synth
 * Sample directly from mic/input on device
 * Build simple sequences (step sequencer)
 * Looper (maybe quantized to step-sequencer)
 * Visualize and trim waveforms
+
+Mizik
+* Different levels with different layouts or rules
+* Non-overlap mode
+  * Difficulty level to control how likely overlap is
+  * Tile-mode which always gets to each hex once to complete the grid
+* Guitar-Hero style song replay mode
+* Non-adjacent mode (but now can it still sound good?)
+* Swipe mode (ideally with visualized swipe lines)
+* Keep score better
+  * Use localstorage for local high-score
+	* Use Parse (or Firebase) for global high-score
+
+Other
+* What sort of benefit might we get from PWA?
+* How can we package up to distribute in app stores?
+
+## Resources
+
+* [Hexagon Grid Math](https://www.redblobgames.com/grids/hexagons/)
+* [Wicki-Hayden Keyboard](https://en.m.wikipedia.org/wiki/Wicki-Hayden_note_layout)
+* [Creating Responsive Shapes with Clip Path](https://www.smashingmagazine.com/2015/05/creating-responsive-shapes-with-clip-path/)
 
 ## Development
 ```bash
