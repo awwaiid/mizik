@@ -45,7 +45,10 @@ yarn serve
 # Compiles and minifies for production
 yarn build
 
-# Lints and fixes files
+# Lints and fixes files. Auto-triggered on commit
 yarn lint
+
+# Deploy to demo site (github pages repo, force-push)
+./deploy
 ```
 
