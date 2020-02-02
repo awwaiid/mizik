@@ -17,13 +17,21 @@
     </div>
 
     <div class="options-block" style="clear:both">
-      <button @click="startOver">
-        Start Over
-      </button>
       <div>High Score: {{ highScore }}</div>
-      <div class="game-over" v-if="!winning">
-        GAME OVER!<br />
-        Final score: {{ score }}
+      <div class="popup game-over" v-if="!winning">
+        <p>
+          GAME OVER!<br />
+          Final score: {{ score }}
+        </p>
+        <button @click="startOver">
+          Start Over
+        </button>
+      </div>
+      <div class="popup game-start" v-if="!gameStarted">
+        <p>Follow the sequence!</p>
+        <button @click="startOver">
+          Start Game
+        </button>
       </div>
       <div>
         Visit
@@ -53,6 +61,7 @@ export default {
   name: "app",
   data() {
     return {
+      gameStarted: false,
       showAllKeys: false,
       showCounts: true,
       showHistory: false,
@@ -139,11 +148,10 @@ export default {
         });
       });
       this.adjacent = {};
-      let me = this;
+      let me = this; // WHY do I have to do this? Doesn't => take care of it?
       this.layout.forEach((row, rowNum) => {
         console.log({ row, rowNum });
         row.forEach((cell, colNum) => {
-          console.log({ row, rowNum, cell, colNum });
           if (cell > 0) {
             let allNeighbors = me.grid.neighborsOf(Hex(colNum, rowNum));
             let definedNeighbors = allNeighbors.filter(v => v);
@@ -161,6 +169,7 @@ export default {
       this.current = [];
       this.score = 0;
       this.$refs.button.forEach(button => button.reset());
+      this.gameStarted = true;
       this.playSequence();
     },
     playSequence() {
@@ -254,12 +263,24 @@ export default {
     --hexagon-radius: 3vmin;
   }
 
-  .game-over {
+  .popup {
     position: absolute;
-    top: 150px;
-    left: 120px;
-    padding: 20px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 25vmin;
+    height: 25vmin;
+    padding: 1em;
+    border: 1px solid black;
+  }
+
+  .game-over {
     background-color: crimson;
+  }
+  .game-start {
+    background-color: lightcyan;
   }
 }
 </style>
