@@ -21,6 +21,8 @@ if (process.env.NODE_ENV === "production") {
     },
     updated() {
       console.log("New content is available; please refresh.");
+      // This will force-refresh when we detect new content
+      window.location.reload(true);
     },
     offline() {
       console.log(

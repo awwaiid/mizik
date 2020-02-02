@@ -1,3 +1,8 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/sample-mob-web/" : "/"
+  publicPath: process.env.NODE_ENV === "production" ? "/sample-mob-web/" : "/",
+  pwa: {
+    workboxOptions: {
+      skipWaiting: true
+    }
+  }
 };
