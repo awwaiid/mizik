@@ -14,6 +14,9 @@ Synth
 
 Mizik
 * Different levels with different layouts or rules
+  * Score based on length
+  * Bonus score for overlaps
+  * Some way to beat levels -- complete coverage or max count
 * Non-overlap mode
   * Difficulty level to control how likely overlap is
   * Tile-mode which always gets to each hex once to complete the grid
