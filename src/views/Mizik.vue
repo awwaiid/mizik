@@ -48,16 +48,30 @@
           </HexButton>
         </div>
       </div>
+      <h2>Leader Board</h2>
       <div class="leader-board">
-        <div class="entry" v-for="record in leaderBoard" :key="record.id">
-          {{ record.playerName }} {{ record.score }}
+        <div
+          class="entry"
+          v-for="(record, index) in leaderBoard"
+          :key="record.id"
+        >
+          <div class="rank">{{ index + 1 }}.</div>
+          <div class="playerName">{{ record.playerName }}</div>
+          <div class="score">({{ record.score }} pts)</div>
         </div>
       </div>
+    </div>
+    <div>
+      Visit
+      <a href="https://github.com/awwaiid/sample-mob/">GitHub Project</a> for
+      more info.
     </div>
   </div>
 </template>
 
 <script>
+import * as Tone from "tone";
+
 import TriggerButton from "@/components/TriggerButton.vue";
 import HexButton from "@/components/HexButton.vue";
 
@@ -184,7 +198,8 @@ export default {
         });
       });
     },
-    startOver() {
+    async startOver() {
+      await Tone.start();
       this.current = [];
       this.score = 0;
       this.$refs.button.forEach(button => button.reset());
