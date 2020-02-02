@@ -17,11 +17,20 @@
     </div>
 
     <div class="options-block" style="clear:both">
-      <div>High Score: {{ highScore }}</div>
+      <div>Score: {{ score }}</div>
+      <div>High Score: {{ highScore }} ({{ highScorePlayer }})</div>
       <div class="popup game-over" v-if="!winning">
         <p>
           GAME OVER!<br />
-          Final score: {{ score }}
+          Your score: {{ score }}<br />
+          <input
+            type="text"
+            v-model="playerName"
+            placeholder="Your Name"
+            size="8"
+            maxlength="16"
+          />
+          <button @click="saveScore">Save Score</button>
         </p>
         <button @click="startOver">
           Start Over
@@ -45,6 +54,11 @@
           </HexButton>
         </div>
       </div>
+      <div class="leader-board">
+        <div class="entry" v-for="record in leaderBoard" :key="record.id">
+          {{ record.playerName }} {{ record.score }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +71,14 @@ const Honeycomb = require("honeycomb-grid");
 const Grid = Honeycomb.defineGrid();
 const Hex = Honeycomb.extendHex();
 
+const Parse = require("parse");
+Parse.initialize("myappID");
+Parse.serverURL = "http://pegasus.thelackthereof.org:1337/parse";
+
+// class GameScore extends Parse.Object {}
+const GameScore = Parse.Object.extend("GameScore");
+// Parse.Object.registerSubclass("GameScore", GameScore);
+
 export default {
   name: "app",
   data() {
@@ -65,6 +87,7 @@ export default {
       showAllKeys: false,
       showCounts: true,
       showHistory: false,
+      playerName: "anonymous",
       noteHistory: [],
       layout: [
         [0, 59, 61, 63, 0],
@@ -127,7 +150,9 @@ export default {
       currentPlaying: [],
       winning: true,
       score: 0,
-      highScore: 0
+      highScore: 0,
+      highScorePlayer: "unknown",
+      leaderBoard: []
       // grid: Grid()
     };
   },
@@ -137,10 +162,10 @@ export default {
   },
   created() {
     this.initializeGrid();
+    this.loadHighScores();
   },
   methods: {
     initializeGrid() {
-      // debugger;
       this.grid = Grid();
       this.layout.forEach((row, rowNum) => {
         row.forEach((cell, colNum) => {
@@ -190,6 +215,36 @@ export default {
         setTimeout(() => this.playNext(speed), speed);
       }
     },
+    getGlobalHighScore() {},
+    gameOver() {
+      if (this.score > this.highScore) {
+        this.highScore = this.score;
+        // TODO: save highScore to server
+      }
+    },
+    async loadHighScores() {
+      const query = new Parse.Query(GameScore);
+      query.descending("score");
+      query.limit(10);
+      const results = await query.find();
+      console.log({ results });
+      this.highScore = results[0].get("score");
+      this.highScorePlayer = results[0].get("playerName");
+      this.leaderBoard = results.map(r => ({
+        playerName: r.get("playerName"),
+        score: r.get("score")
+      }));
+    },
+    saveScore() {
+      let gameScore = new GameScore();
+      gameScore
+        .save({
+          playerName: this.playerName,
+          score: this.score
+        })
+        .then(() => this.loadHighScores());
+      this.startOver();
+    },
     addHistory(note) {
       this.noteHistory.push(note);
       this.winning = this.noteHistory.every(
@@ -197,15 +252,13 @@ export default {
       );
       if (this.winning && this.noteHistory.length == this.current.length) {
         this.score = this.noteHistory.length;
-        if (this.score > this.highScore) {
-          this.highScore = this.score;
-        }
         setTimeout(() => this.playSequence(), 1000);
       }
       if (!this.winning) {
         // Reset the last note in case it doesn't get
         // a touch-release
         this.$refs.button.forEach(button => button.unTrigger());
+        this.gameOver();
       }
     },
     randomEntry(items) {
