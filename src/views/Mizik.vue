@@ -73,7 +73,7 @@ const Hex = Honeycomb.extendHex();
 
 const Parse = require("parse");
 Parse.initialize("myappID");
-Parse.serverURL = "http://pegasus.thelackthereof.org:1337/parse";
+Parse.serverURL = "https://thelackthereof.org/parse";
 
 // class GameScore extends Parse.Object {}
 const GameScore = Parse.Object.extend("GameScore");
