@@ -18,7 +18,6 @@
 
     <div class="options-block" style="clear:both">
       <div>Score: {{ score }}</div>
-      <div>High Score: {{ highScore }} ({{ highScorePlayer }})</div>
       <div class="popup game-over" v-if="!winning">
         <p>
           GAME OVER!<br />
@@ -41,11 +40,6 @@
         <button @click="startOver">
           Start Game
         </button>
-      </div>
-      <div>
-        Visit
-        <a href="https://github.com/awwaiid/sample-mob/">GitHub Project</a> for
-        more info.
       </div>
       <div class="history" v-if="showHistory">
         <div v-for="note in noteHistory" v-bind:key="note.id">
@@ -334,6 +328,17 @@ export default {
   }
   .game-start {
     background-color: lightcyan;
+  }
+
+  .leader-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .entry {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border: 1px solid #ccc;
+    }
   }
 }
 </style>
