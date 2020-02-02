@@ -2,8 +2,7 @@
 
 Playing around with WebAudio and mobile interactions. I'm taking inspiration from the very fun [Teenage Engineering PO-33](https://teenage.engineering/store/po-33) and other weird things ([Wicki-Hayden Keyboard](https://en.m.wikipedia.org/wiki/Wicki-Hayden_note_layout)). I'll push demo builds to [https://awwaiid.github.io/sample-mob-web/](https://awwaiid.github.io/sample-mob-web/).
 
-<img src="public/synth-20200119.png?raw=true" alt="Synth Screenshot" width="200px"/>
-<img src="public/mizik-20200202.png?raw=true" alt="Mizik Screenshot" width="200px"/>
+<img src="public/synth-20200119.png?raw=true" alt="Synth Screenshot" width="200px"/> <img src="public/mizik-20200202.png?raw=true" alt="Mizik Screenshot" width="200px"/>
 
 ## Ideas
 
