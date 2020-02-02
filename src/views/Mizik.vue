@@ -48,18 +48,7 @@
           </HexButton>
         </div>
       </div>
-      <h2>Leader Board</h2>
-      <div class="leader-board">
-        <div
-          class="entry"
-          v-for="(record, index) in leaderBoard"
-          :key="record.id"
-        >
-          <div class="rank">{{ index + 1 }}.</div>
-          <div class="playerName">{{ record.playerName }}</div>
-          <div class="score">({{ record.score }} pts)</div>
-        </div>
-      </div>
+      <LeaderBoard :leaders="leaderBoard" />
     </div>
     <div>
       Visit
@@ -74,6 +63,7 @@ import * as Tone from "tone";
 
 import TriggerButton from "@/components/TriggerButton.vue";
 import HexButton from "@/components/HexButton.vue";
+import LeaderBoard from "@/components/LeaderBoard.vue";
 
 const Honeycomb = require("honeycomb-grid");
 const Grid = Honeycomb.defineGrid();
@@ -166,7 +156,8 @@ export default {
   },
   components: {
     TriggerButton,
-    HexButton
+    HexButton,
+    LeaderBoard
   },
   created() {
     this.initializeGrid();
@@ -343,17 +334,6 @@ export default {
   }
   .game-start {
     background-color: lightcyan;
-  }
-
-  .leader-board {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    .entry {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      border: 1px solid #ccc;
-    }
   }
 }
 </style>
