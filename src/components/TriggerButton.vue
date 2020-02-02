@@ -2,11 +2,11 @@
   <div class="trigger-button">
     <HexButton :orientation="orientation">
       <div
-        v-touch:start="onTouchStart"
-        v-touch:end="onTouchEnd"
-        @mousedown="onMouseDown"
-        @mouseup="onMouseUp"
-        v-touch:tap="onTouchTap"
+        v-touch:start.prevent="onTouchStart"
+        v-touch:end.prevent="onTouchEnd"
+        @mousedown.prevent="onMouseDown"
+        @mouseup.prevent="onMouseUp"
+        v-touch:tap.prevent="onTouchTap"
         :style="{ backgroundColor: countColor }"
         :class="{ active: isActive }"
       >

@@ -25,6 +25,7 @@
           <input
             type="text"
             v-model="playerName"
+            ref="playerNameInput"
             placeholder="Your Name"
             size="8"
             maxlength="16"
@@ -32,7 +33,7 @@
           <button @click="saveScore">Save Score</button>
         </p>
         <button @click="startOver">
-          Start Over
+          Start Over Without Saving
         </button>
       </div>
       <div class="popup game-start" v-if="!gameStarted">
@@ -201,10 +202,17 @@ export default {
         setTimeout(() => this.playSequence(), 1000);
       }
       if (!this.winning) {
-        // Reset the last note in case it doesn't get
-        // a touch-release
-        this.$refs.button.forEach(button => button.unTrigger());
+        this.gameOver();
       }
+    },
+    gameOver() {
+      // Reset the last note in case it doesn't get
+      // a touch-release
+      // this.$refs.playerNameInput.focus();
+      this.$refs.button.forEach(button => button.unTrigger());
+      this.$nextTick(() => {
+        this.$refs.playerNameInput.focus();
+      });
     },
     randomEntry(items) {
       return items[Math.floor(Math.random() * items.length)];
@@ -263,13 +271,9 @@ export default {
 
   .popup {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 25vmin;
-    height: 25vmin;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 1em;
     border: 1px solid black;
   }
