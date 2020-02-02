@@ -125,7 +125,6 @@ export default {
       this.adjacent = {};
       let me = this; // WHY do I have to do this? Doesn't => take care of it?
       this.layout.forEach((row, rowNum) => {
-        console.log({ row, rowNum });
         row.forEach((cell, colNum) => {
           if (cell > 0) {
             let allNeighbors = me.grid.neighborsOf(Hex(colNum, rowNum));
@@ -161,6 +160,9 @@ export default {
     playNext(speed) {
       let note = this.currentPlaying.shift();
       if (note) {
+        // I don't really like this way of triggering the right button; seems
+        // like we should be able to jump right to the correct button rather than
+        // looping through each time.
         this.$refs.button.forEach(button => {
           if (button.note == note) {
             button.trigger(0.2);
@@ -169,13 +171,11 @@ export default {
         setTimeout(() => this.playNext(speed), speed);
       }
     },
-    getGlobalHighScore() {},
     async loadHighScores() {
       const query = new Parse.Query(GameScore);
       query.descending("score");
       query.limit(10);
       const results = await query.find();
-      console.log({ results });
       this.leaderBoard = results.map(r => ({
         playerName: r.get("playerName"),
         score: r.get("score")
