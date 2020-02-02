@@ -15,6 +15,7 @@
 export default {
   name: "LeaderBoard",
   props: {
+    // A sorted list of leaders
     leaders: Array
   }
 };

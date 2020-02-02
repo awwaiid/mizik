@@ -65,17 +65,18 @@ import TriggerButton from "@/components/TriggerButton.vue";
 import HexButton from "@/components/HexButton.vue";
 import LeaderBoard from "@/components/LeaderBoard.vue";
 
+// Handy library for doing hex-grid calculations
 const Honeycomb = require("honeycomb-grid");
 const Grid = Honeycomb.defineGrid();
 const Hex = Honeycomb.extendHex();
 
+// Question: How does one secure a webapp-based scoring system?
+// Doesn't seem like there is a way to prevent fake scores from
+// being posted. We'll go with trust for now!
 const Parse = require("parse");
 Parse.initialize("myappID");
 Parse.serverURL = "https://thelackthereof.org/parse";
-
-// class GameScore extends Parse.Object {}
 const GameScore = Parse.Object.extend("GameScore");
-// Parse.Object.registerSubclass("GameScore", GameScore);
 
 export default {
   name: "app",
@@ -85,7 +86,7 @@ export default {
       showAllKeys: false,
       showCounts: true,
       showHistory: false,
-      playerName: "anonymous",
+      playerName: undefined,
       noteHistory: [],
       layout: [
         [0, 59, 61, 63, 0],
@@ -94,64 +95,12 @@ export default {
         [40, 42, 44, 46],
         [0, 37, 39, 41, 0]
       ],
-      layoutOld: [
-        [52, 54, 56, 58, 60, 62],
-        [45, 47, 49, 51, 53, 55, 57],
-        [40, 42, 44, 46, 48, 50],
-        [35, 37, 39, 41, 43]
-      ],
-      layoutVertical: [
-        [45, 57],
-        [0, 50, 62],
-        [43, 55],
-        [0, 48, 60],
-        [41, 53],
-        [0, 46, 58],
-        [39, 51],
-        [0, 44, 56],
-        [37, 49],
-        [0, 42, 54],
-        [35, 47],
-        [0, 40, 52],
-        [33, 45]
-      ],
       adjacent: {},
-      //   59: [52, 54, 61],
-      //   61: [59, 54, 56, 63],
-      //   63: [61, 56, 58],
-      //   52: [45, 47, 54, 59],
-      //   54: [59, 52, 47, 49, 56, 61],
-      //   56: [54, 49, 51, 58],
-      //   58: [56, 51, 53, 60],
-      //   60: [58, 53, 55, 62],
-      //   62: [60, 55, 57],
-      //   45: [40, 47, 52],
-      //   47: [52, 45, 40, 42, 49, 54],
-      //   49: [54, 47, 42, 44, 51, 56],
-      //   51: [56, 49, 44, 46, 53, 58],
-      //   53: [58, 51, 46, 48, 55, 60],
-      //   55: [60, 53, 48, 50, 57],
-      //   57: [62, 55, 50],
-      //   40: [45, 35, 42, 47],
-      //   42: [47, 40, 35, 37, 44, 49],
-      //   44: [49, 42, 37, 39, 46, 51],
-      //   46: [51, 44, 39, 41, 48, 53],
-      //   48: [53, 46, 41, 43, 50, 55],
-      //   50: [55, 48, 43],
-      //   35: [40, 37, 42],
-      //   37: [42, 35, 39, 44],
-      //   39: [44, 37, 41, 46],
-      //   41: [46, 39, 43, 48],
-      //   43: [48, 41, 50]
-      // },
       current: [],
       currentPlaying: [],
       winning: true,
       score: 0,
-      highScore: 0,
-      highScorePlayer: "unknown",
       leaderBoard: []
-      // grid: Grid()
     };
   },
   components: {
@@ -165,6 +114,8 @@ export default {
   },
   methods: {
     initializeGrid() {
+      // Note: We are storing grid outside of $data on purpose
+      // When it was in $data the reactive lister wrappers did weird things
       this.grid = Grid();
       this.layout.forEach((row, rowNum) => {
         row.forEach((cell, colNum) => {
@@ -190,7 +141,10 @@ export default {
       });
     },
     async startOver() {
+      // Now that there's been an interaction, Tone can initialize the sound system
+      // Technically we only need to do this once, upon the first interaction on page
       await Tone.start();
+
       this.current = [];
       this.score = 0;
       this.$refs.button.forEach(button => button.reset());
@@ -216,20 +170,12 @@ export default {
       }
     },
     getGlobalHighScore() {},
-    gameOver() {
-      if (this.score > this.highScore) {
-        this.highScore = this.score;
-        // TODO: save highScore to server
-      }
-    },
     async loadHighScores() {
       const query = new Parse.Query(GameScore);
       query.descending("score");
       query.limit(10);
       const results = await query.find();
       console.log({ results });
-      this.highScore = results[0].get("score");
-      this.highScorePlayer = results[0].get("playerName");
       this.leaderBoard = results.map(r => ({
         playerName: r.get("playerName"),
         score: r.get("score")
@@ -258,7 +204,6 @@ export default {
         // Reset the last note in case it doesn't get
         // a touch-release
         this.$refs.button.forEach(button => button.unTrigger());
-        this.gameOver();
       }
     },
     randomEntry(items) {
