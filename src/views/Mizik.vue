@@ -2,15 +2,17 @@
   <div id="app">
     <div class="button-grid">
       <div class="button-row" v-for="row in layout" :key="row.id">
-        <TriggerButton
-          v-for="note in row"
-          v-bind:key="note.id"
-          ref="button"
-          :note="note"
-          :show-count="showCounts"
-          @clicked="addHistory"
-          orientation="row"
-        />
+        <template v-for="note in row">
+          <TriggerButton
+            v-if="note > 0"
+            v-bind:key="note.id"
+            ref="button"
+            :note="note"
+            :show-count="showCounts"
+            @clicked="addHistory"
+            orientation="row"
+          />
+        </template>
       </div>
     </div>
 
@@ -28,7 +30,7 @@
         <a href="https://github.com/awwaiid/sample-mob/">GitHub Project</a> for
         more info.
       </div>
-      <div class="history">
+      <div class="history" v-if="showHistory">
         <div v-for="note in noteHistory" v-bind:key="note.id">
           <HexButton>
             {{ note }}
@@ -43,14 +45,26 @@
 import TriggerButton from "@/components/TriggerButton.vue";
 import HexButton from "@/components/HexButton.vue";
 
+const Honeycomb = require("honeycomb-grid");
+const Grid = Honeycomb.defineGrid();
+const Hex = Honeycomb.extendHex();
+
 export default {
   name: "app",
   data() {
     return {
       showAllKeys: false,
       showCounts: true,
+      showHistory: false,
       noteHistory: [],
       layout: [
+        [0, 59, 61, 63, 0],
+        [52, 54, 56, 58],
+        [45, 47, 49, 51, 53],
+        [40, 42, 44, 46],
+        [0, 37, 39, 41, 0]
+      ],
+      layoutOld: [
         [52, 54, 56, 58, 60, 62],
         [45, 47, 49, 51, 53, 55, 57],
         [40, 42, 44, 46, 48, 50],
@@ -71,44 +85,78 @@ export default {
         [0, 40, 52],
         [33, 45]
       ],
-      adjacent: {
-        52: [45, 47, 54],
-        54: [52, 47, 49, 56],
-        56: [54, 49, 51, 58],
-        58: [56, 51, 53, 60],
-        60: [58, 53, 55, 62],
-        62: [60, 55, 57],
-        45: [40, 47, 52],
-        47: [52, 45, 40, 42, 49, 54],
-        49: [54, 47, 42, 44, 51, 56],
-        51: [56, 49, 44, 46, 53, 58],
-        53: [58, 51, 46, 48, 55, 60],
-        55: [60, 53, 48, 50, 57],
-        57: [62, 55, 50],
-        40: [45, 35, 42, 47],
-        42: [47, 40, 35, 37, 44, 49],
-        44: [49, 42, 37, 39, 46, 51],
-        46: [51, 44, 39, 41, 48, 53],
-        48: [53, 46, 41, 43, 50, 55],
-        50: [55, 48, 43],
-        35: [40, 37, 42],
-        37: [42, 35, 39, 44],
-        39: [44, 37, 41, 46],
-        41: [46, 39, 43, 48],
-        43: [48, 41, 50]
-      },
+      adjacent: {},
+      //   59: [52, 54, 61],
+      //   61: [59, 54, 56, 63],
+      //   63: [61, 56, 58],
+      //   52: [45, 47, 54, 59],
+      //   54: [59, 52, 47, 49, 56, 61],
+      //   56: [54, 49, 51, 58],
+      //   58: [56, 51, 53, 60],
+      //   60: [58, 53, 55, 62],
+      //   62: [60, 55, 57],
+      //   45: [40, 47, 52],
+      //   47: [52, 45, 40, 42, 49, 54],
+      //   49: [54, 47, 42, 44, 51, 56],
+      //   51: [56, 49, 44, 46, 53, 58],
+      //   53: [58, 51, 46, 48, 55, 60],
+      //   55: [60, 53, 48, 50, 57],
+      //   57: [62, 55, 50],
+      //   40: [45, 35, 42, 47],
+      //   42: [47, 40, 35, 37, 44, 49],
+      //   44: [49, 42, 37, 39, 46, 51],
+      //   46: [51, 44, 39, 41, 48, 53],
+      //   48: [53, 46, 41, 43, 50, 55],
+      //   50: [55, 48, 43],
+      //   35: [40, 37, 42],
+      //   37: [42, 35, 39, 44],
+      //   39: [44, 37, 41, 46],
+      //   41: [46, 39, 43, 48],
+      //   43: [48, 41, 50]
+      // },
       current: [],
       currentPlaying: [],
       winning: true,
       score: 0,
       highScore: 0
+      // grid: Grid()
     };
   },
   components: {
     TriggerButton,
     HexButton
   },
+  created() {
+    this.initializeGrid();
+  },
   methods: {
+    initializeGrid() {
+      // debugger;
+      this.grid = Grid();
+      this.layout.forEach((row, rowNum) => {
+        row.forEach((cell, colNum) => {
+          this.grid.push(Hex(colNum, rowNum));
+        });
+      });
+      this.adjacent = {};
+      let me = this;
+      this.layout.forEach((row, rowNum) => {
+        console.log({ row, rowNum });
+        row.forEach((cell, colNum) => {
+          console.log({ row, rowNum, cell, colNum });
+          if (cell > 0) {
+            let allNeighbors = me.grid.neighborsOf(Hex(colNum, rowNum));
+            let definedNeighbors = allNeighbors.filter(v => v);
+            let neighborNotes = definedNeighbors.map(
+              loc => me.layout[loc.y][loc.x]
+            );
+            let filledNotes = neighborNotes.filter(note => note > 0);
+            me.adjacent[cell] = me.adjacent[cell] || [];
+            me.adjacent[cell].push(...filledNotes);
+          }
+        });
+      });
+    },
     startOver() {
       this.current = [];
       this.score = 0;
@@ -178,20 +226,18 @@ export default {
     -webkit-tap-highlight-color: transparent;
   }
 
-  --hexagon-size: 13vw;
+  --hexagon-radius: 10vmin;
 
   .button-row {
     display: flex;
     justify-content: center;
-    margin-top: calc(-1 * var(--hexagon-size) / 3.6);
-    /* margin-top: calc(-1 * var(--hexagon-size) / 2); */
+    margin-top: calc(-1 * var(--hexagon-radius) / 2);
   }
 
   .hexagon {
-    margin: 2px;
-    /* margin-left: calc(var(--hexagon-size) / 1.5); */
+    margin: 1vmin;
     --background-color: #ccf;
-    --hexagon-size: 13vw;
+    --hexagon-radius: 10vmin;
   }
 
   .options-block {
@@ -205,6 +251,7 @@ export default {
     float: left;
     margin: 5px;
     --background-color: #cfc;
+    --hexagon-radius: 3vmin;
   }
 
   .game-over {

@@ -209,18 +209,18 @@ export default {
     -webkit-tap-highlight-color: transparent;
   }
 
-  --hexagon-size: 9vw;
+  --hexagon-radius: 5vmin;
 
   .button-row {
     display: flex;
     justify-content: center;
-    margin-top: calc(-1 * var(--hexagon-size) / 3.6);
+    margin-top: calc(-1 * var(--hexagon-radius) / 2);
   }
 
   .hexagon {
     margin: 2px;
     --background-color: #ccf;
-    --hexagon-size: 9vw;
+    --hexagon-radius: 5vmin;
   }
 
   .black-key .hexagon {

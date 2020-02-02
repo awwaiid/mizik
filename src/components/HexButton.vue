@@ -34,10 +34,13 @@ export default {
 
 <style scoped lang="scss">
 .hexagon {
-  --hexagon-size: 3em;
+  --hexagon-radius: 3em;
   --border-color: #000;
   --border-size: 1px;
   --drop-shadow: 10px 10px 5px;
+
+  --hexagon-height: calc(2 * var(--hexagon-radius));
+  --hexagon-width: calc(1.73205 * var(--hexagon-radius)); /* sqrt(3) */
 
   filter: drop-shadow(var(--drop-shadow));
 }
@@ -45,9 +48,8 @@ export default {
 .hexagon-border {
   text-align: center;
   background-color: var(--border-color);
-  width: var(--hexagon-size);
-  height: var(--hexagon-size);
-  line-height: var(--hexagon-size);
+  width: var(--hexagon-width);
+  height: var(--hexagon-height);
   position: relative;
 }
 
@@ -56,9 +58,9 @@ export default {
   background-color: var(--background-color, #765);
   top: var(--border-size);
   left: var(--border-size);
-  width: calc(var(--hexagon-size) - var(--border-size) * 2);
-  height: calc(var(--hexagon-size) - var(--border-size) * 2);
-  line-height: var(--hexagon-size);
+  width: calc(var(--hexagon-width) - var(--border-size) * 2);
+  height: calc(var(--hexagon-height) - var(--border-size) * 2);
+  line-height: var(--hexagon-height);
   position: absolute;
 }
 
