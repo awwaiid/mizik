@@ -1,7 +1,7 @@
 <template>
   <div class="hexagon">
     <div class="hexagon-border" :class="clipPathClass">
-      <div class="hexagon-content" :style="clipPathStyle">
+      <div class="hexagon-content" :class="clipPathClass">
         <slot></slot>
       </div>
     </div>
@@ -30,7 +30,7 @@ export default {
   --hexagon-radius: 3em;
   --border-color: #000;
   --border-size: 1px;
-  --drop-shadow: 10px 10px 5px;
+  --drop-shadow: 10px 10px 5px #888;
 
   --hexagon-height: calc(2 * var(--hexagon-radius));
   --hexagon-width: calc(1.73205 * var(--hexagon-radius)); /* sqrt(3) */
