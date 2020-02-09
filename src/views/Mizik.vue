@@ -11,6 +11,7 @@
             :show-count="showCounts"
             @clicked="addHistory"
             orientation="row"
+            duration="0.2"
           />
         </template>
       </div>

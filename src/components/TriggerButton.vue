@@ -61,7 +61,8 @@ export default {
     showCount: Boolean,
     backgroundColor: String,
     label: String,
-    orientation: String
+    orientation: String,
+    duration: String
   },
   mounted() {
     if (!this.boundKeys) {
@@ -103,25 +104,33 @@ export default {
     onTouchStart() {
       console.log("touch start");
       this.$emit("clicked", this.note);
-      // this.count++;
       this.isActive = true;
-      this.synth.triggerAttack(this.noteToFreq(this.$props.note));
-    },
-    onTouchEnd() {
-      console.log("touch end!");
       this.count--;
       if (this.count <= 0) {
         this.count = 0;
         this.isActive = false;
       }
-      this.synth.triggerRelease();
+      // this.count++;
+      this.trigger(this.duration, false);
+      // this.synth.triggerAttack(this.noteToFreq(this.$props.note));
+    },
+    onTouchEnd() {
+      console.log("touch end!");
+      // if (this.count <= 0) {
+      //   this.count = 0;
+      //   this.isActive = false;
+      // }
+      if (!(this.duration > 0)) {
+        console.log("onTouchEnd synth release");
+        this.synth.triggerRelease();
+      }
     },
     onKeyDown(event) {
       if (this.keyboardKey && event.key == this.keyboardKey) {
         console.log("keypress!");
         this.$emit("clicked", this.note);
         this.isActive = true;
-        this.synth.triggerAttack(this.noteToFreq(this.$props.note));
+        this.trigger(this.duration);
       }
     },
     onKeyUp(event) {
@@ -131,13 +140,22 @@ export default {
         this.synth.triggerRelease();
       }
     },
-    trigger(duration) {
+    trigger(duration, incrementCount = true) {
       // this.isActive = true;
-      this.count++;
-      this.synth.triggerAttackRelease(
-        this.noteToFreq(this.$props.note),
-        duration
-      );
+      if (incrementCount) {
+        this.count++;
+      }
+      if (this.duration > 0) {
+        console.log("Trigger with release, duration:", duration);
+        this.synth.triggerRelease();
+        this.synth.triggerAttackRelease(
+          this.noteToFreq(this.$props.note),
+          duration
+        );
+      } else {
+        console.log("Trigger, NO release");
+        this.synth.triggerAttack(this.noteToFreq(this.$props.note));
+      }
     },
     unTrigger() {
       console.log("force clear");
