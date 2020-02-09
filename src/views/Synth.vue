@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="synth">
     <div class="button-grid">
       <div class="button-row" v-for="row in layout" :key="row.id">
         <TriggerButton
@@ -49,7 +49,7 @@ import TriggerButton from "@/components/TriggerButton.vue";
 import HexButton from "@/components/HexButton.vue";
 
 export default {
-  name: "app",
+  name: "synth",
   data() {
     return {
       showAllKeys: false,
@@ -198,7 +198,7 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
+#synth {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

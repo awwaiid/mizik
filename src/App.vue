@@ -8,8 +8,8 @@
           class="logo"
         />
       </router-link>
-      <router-link to="/synth">Synth</router-link> |
-      <router-link to="/mizik">Mizik</router-link>
+      <router-link to="/mizik">Play Mizik</router-link> |
+      <router-link to="/synth">Synth</router-link>
     </div>
     <router-view />
   </div>

@@ -1,5 +1,8 @@
 <template>
-  <div id="app">
+  <div id="mizik">
+    <div class="current-score">
+      {{ score }}<span class="pts-label">pts</span>
+    </div>
     <div class="button-grid">
       <div class="button-row" v-for="row in layout" :key="row.id">
         <template v-for="note in row">
@@ -18,7 +21,6 @@
     </div>
 
     <div class="options-block" style="clear:both">
-      <div>Score: {{ score }}</div>
       <div class="popup game-over" v-if="!winning">
         <p>
           GAME OVER!<br />
@@ -52,11 +54,6 @@
       </div>
       <LeaderBoard :leaders="leaderBoard" />
     </div>
-    <div>
-      Visit
-      <a href="https://github.com/awwaiid/sample-mob/">GitHub Project</a> for
-      more info.
-    </div>
   </div>
 </template>
 
@@ -81,7 +78,7 @@ Parse.serverURL = "https://thelackthereof.org/parse";
 const GameScore = Parse.Object.extend("GameScore");
 
 export default {
-  name: "app",
+  name: "mizik",
   data() {
     return {
       gameStarted: false,
@@ -230,7 +227,7 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
+#mizik {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -276,6 +273,7 @@ export default {
     transform: translate(-50%, -50%);
     padding: 1em;
     border: 1px solid black;
+    color: #2c3e50;
   }
 
   .game-over {
@@ -283,6 +281,16 @@ export default {
   }
   .game-start {
     background-color: lightcyan;
+  }
+
+  .current-score {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 30px;
+    .pts-label {
+      font-size: 15px;
+    }
   }
 }
 </style>
