@@ -10,7 +10,9 @@
         :style="{ backgroundColor: countColor }"
         :class="{ active: isActive }"
       >
-        <span v-if="showCount">{{ this.$data.count }}</span>
+        <span v-if="showCount">{{
+          this.$data.count > 0 ? this.$data.count : ""
+        }}</span>
         <span v-else-if="label">{{ this.$props.label }}</span>
         <span v-else>{{ this.$props.note }}</span>
       </div>
