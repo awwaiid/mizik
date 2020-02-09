@@ -1,6 +1,6 @@
 <template>
   <div class="hexagon">
-    <div class="hexagon-border" :style="clipPathStyle">
+    <div class="hexagon-border" :class="clipPathClass">
       <div class="hexagon-content" :style="clipPathStyle">
         <slot></slot>
       </div>
@@ -15,18 +15,11 @@ export default {
     orientation: { default: "row" }
   },
   computed: {
-    clipPathStyle() {
-      if (this.orientation == "row") {
-        return {
-          clipPath:
-            "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)"
-        };
-      } else {
-        return {
-          clipPath:
-            "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)"
-        };
-      }
+    clipPathClass() {
+      return {
+        "hexagon-clip-row": this.orientation == "row",
+        "hexagon-clip-col": this.orientation == "col"
+      };
     }
   }
 };
@@ -43,6 +36,13 @@ export default {
   --hexagon-width: calc(1.73205 * var(--hexagon-radius)); /* sqrt(3) */
 
   filter: drop-shadow(var(--drop-shadow));
+}
+
+.hexagon-clip-row {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.hexagon-clip-col {
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
 }
 
 .hexagon-border {
