@@ -16,12 +16,21 @@
 </template>
 
 <style lang="scss">
+body {
+  margin: 0;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fff;
+  background-color: #097374;
+  padding: 0;
+  margin: auto;
+  height: 100vh;
+  width: 100vw;
 }
 
 #nav {
@@ -31,7 +40,7 @@
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #fff;
     vertical-align: top;
 
     &.router-link-exact-active {

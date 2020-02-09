@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="leader-board">
     <h2>Leader Board</h2>
-    <div class="leader-board">
+    <div class="leader-board-grid">
       <div class="entry" v-for="(record, index) in leaders" :key="record.id">
         <div class="rank">{{ index + 1 }}.</div>
         <div class="playerName">{{ record.playerName }}</div>
@@ -23,13 +23,27 @@ export default {
 
 <style scoped lang="scss">
 .leader-board {
+  color: #fff;
+}
+
+.leader-board-grid {
+  margin: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  width: 90%;
 
   .entry {
+    text-align: left;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    border: 1px solid #ccc;
+    grid-template-columns: 1fr 2fr 2fr;
+    /* border: 1px solid #ccc; */
+
+    .rank {
+      text-align: right;
+      margin-right: 0.5em;
+    }
   }
 }
 </style>

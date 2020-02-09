@@ -30,12 +30,14 @@ export default {
   --hexagon-radius: 3em;
   --border-color: #000;
   --border-size: 1px;
-  --drop-shadow: 10px 10px 5px #888;
+  --drop-shadow: 10px 10px 5px #00000069;
 
   --hexagon-height: calc(2 * var(--hexagon-radius));
   --hexagon-width: calc(1.73205 * var(--hexagon-radius)); /* sqrt(3) */
 
   filter: drop-shadow(var(--drop-shadow));
+
+  color: #2c3e50;
 }
 
 .hexagon-clip-row {
