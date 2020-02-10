@@ -23,7 +23,7 @@ export default {
 
 <style scoped lang="scss">
 .leader-board {
-  color: #fff;
+  color: #000;
 }
 
 .leader-board-grid {

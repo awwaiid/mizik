@@ -2,11 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">
-        <img
-          alt="Mizik logo"
-          src="@/assets/mizik-logo-large.png"
-          class="logo"
-        />
+        <img alt="Mizik logo" src="@/assets/mizik-logo-02.png" class="logo" />
       </router-link>
       <router-link to="/mizik">Play Mizik</router-link> |
       <router-link to="/synth">Synth</router-link>
@@ -25,8 +21,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #fff;
-  background-color: #097374;
+  color: #000;
+  background-color: #c6d2de;
   padding: 0;
   margin: auto;
   height: 100vh;
@@ -40,11 +36,11 @@ body {
 
   a {
     font-weight: bold;
-    color: #fff;
+    color: #000;
     vertical-align: top;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #33a;
     }
   }
 
