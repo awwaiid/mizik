@@ -30,8 +30,8 @@
       </div>
       <div>
         Visit
-        <a href="https://github.com/awwaiid/sample-mob/">GitHub Project</a> for
-        more info.
+        <a href="https://github.com/awwaiid/mizik/">GitHub Project</a> for more
+        info.
       </div>
       <div class="history">
         <div v-for="note in noteHistory" v-bind:key="note.id">

@@ -10,13 +10,14 @@ yarn build
 cd dist
 
 # if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
+echo 'mizikgame.com' > CNAME
 
 git init
+git checkout -b gh-pages
 git add -A
 git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:awwaiid/sample-mob-web.git master
+git push -f git@github.com:awwaiid/mizik.git gh-pages
 
 cd -

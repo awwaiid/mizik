@@ -14,7 +14,7 @@
     </p>
     <p>
       Please join us in the fun over at
-      <a href="https://github.com/awwaiid/sample-mob/">the GitHub project</a>!
+      <a href="https://github.com/awwaiid/mizik">the GitHub project</a>!
     </p>
   </div>
 </template>
