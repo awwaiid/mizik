@@ -1,11 +1,13 @@
 <template>
   <div class="home">
-    <img
-      alt="Mizik logo"
-      src="@/assets/mizik-logo-02.png"
-      class="splash-logo"
-    />
-    <h1>Mizik!</h1>
+    <router-link to="/mizik">
+      <img
+        alt="Mizik logo"
+        src="@/assets/mizik-logo-02.png"
+        class="splash-logo"
+      />
+    </router-link>
+    <router-link to="/mizik"><h1>Mizik!</h1></router-link>
     <p>Welcome! Mizik is a game of memory, sequence, sound, and color.</p>
     <p>
       Mizik is an open-source project, part of a series of experiments in web

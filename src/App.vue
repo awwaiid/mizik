@@ -7,7 +7,9 @@
       <router-link to="/mizik">Play Mizik</router-link> |
       <router-link to="/synth">Synth</router-link>
     </div>
-    <router-view />
+    <transition name="fade">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -16,7 +18,7 @@ body {
   margin: 0;
 }
 
-#app {
+body {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

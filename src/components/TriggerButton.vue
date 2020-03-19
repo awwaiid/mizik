@@ -2,16 +2,14 @@
   <div class="trigger-button">
     <HexButton :orientation="orientation">
       <div
-        v-touch:start.prevent="onTouchStart"
-        v-touch:end.prevent="onTouchEnd"
-        @mousedown.prevent="onMouseDown"
-        @mouseup.prevent="onMouseUp"
-        v-touch:tap.prevent="onTouchTap"
+        v-touch:start="onTouchStart"
+        v-touch:end="onTouchEnd"
+        v-touch="onTouch"
         :style="{ backgroundColor: countColor }"
         :class="{ active: isActive }"
       >
         <span v-if="showCount">{{
-          this.$data.count > 0 ? this.$data.count : ""
+          this.$data.count > 0 ? this.$data.count : "\xa0"
         }}</span>
         <span v-else-if="label">{{ this.$props.label }}</span>
         <span v-else>{{ this.$props.note }}</span>
@@ -80,7 +78,7 @@ export default {
   created() {
     this.synth = new Tone.Synth({
       oscillator: {
-        type: "triangle"
+        type: "square"
       },
       envelope: {
         attack: 0.001,
@@ -104,7 +102,7 @@ export default {
       console.log("touch tap");
     },
     onTouchStart() {
-      console.log("touch start");
+      console.log("touch start", this.note);
       this.$emit("clicked", this.note);
       this.isActive = true;
       this.count--;
@@ -115,9 +113,10 @@ export default {
       // this.count++;
       this.trigger(this.duration, false);
       // this.synth.triggerAttack(this.noteToFreq(this.$props.note));
+      return true;
     },
     onTouchEnd() {
-      console.log("touch end!");
+      console.log("touch end!", this.note);
       // if (this.count <= 0) {
       //   this.count = 0;
       //   this.isActive = false;
@@ -126,6 +125,9 @@ export default {
         console.log("onTouchEnd synth release");
         this.synth.triggerRelease();
       }
+    },
+    onTouch() {
+      console.log("generic touch");
     },
     onKeyDown(event) {
       if (this.keyboardKey && event.key == this.keyboardKey) {
