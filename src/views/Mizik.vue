@@ -179,7 +179,7 @@ export default {
     async loadHighScores() {
       const query = new Parse.Query(GameScore);
       query.descending("score");
-      query.limit(10);
+      query.limit(50);
       const results = await query.find();
       this.leaderBoard = results.map(r => ({
         playerName: r.get("playerName"),
