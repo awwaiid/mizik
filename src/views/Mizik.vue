@@ -252,7 +252,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   margin: 0 auto;
 
-  * {
+  *:not(input) {
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
