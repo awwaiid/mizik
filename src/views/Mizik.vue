@@ -24,7 +24,8 @@
       <div class="popup game-over" v-if="!winning">
         <p>
           GAME OVER!<br />
-          Your score: {{ score }}<br />
+          Your score: <b>{{ score }} pts</b><br />
+          <br />
           <input
             type="text"
             v-model="playerName"
@@ -32,10 +33,11 @@
             placeholder="Your Name"
             size="8"
             maxlength="16"
+            class="score-name"
           />
-          <button @click="saveScore">Save Score</button>
+          <button class="save-score" @click="saveScore">Save Score</button>
         </p>
-        <button @click="startOver">
+        <button class="start-over" @click="startOver">
           Start Over Without Saving
         </button>
       </div>
@@ -289,6 +291,15 @@ export default {
 
   .game-over {
     background-color: crimson;
+
+    .save-score,
+    .score-name {
+      font-size: 17px;
+    }
+
+    .start-over {
+      font-size: 8px;
+    }
   }
   .game-start {
     background-color: lightcyan;
