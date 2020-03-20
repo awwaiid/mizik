@@ -7,8 +7,14 @@
         class="splash-logo"
       />
     </router-link>
-    <router-link to="/mizik"><h1>Mizik!</h1></router-link>
-    <p>Welcome! Mizik is a game of memory, sequence, sound, and color.</p>
+    <router-link to="/mizik">
+      <h1>Click here to play Mizik!</h1>
+    </router-link>
+    <p>
+      Welcome! Mizik is a game of memory, pattern, sound, and color. Mizik will
+      play a chain of sounds, and then you repeat it back. Bonus points when the
+      snaking doubles-back!
+    </p>
     <p>
       Mizik is an open-source project, part of a series of experiments in web
       techology. It is a play of VueJS, WebAudio via ToneJS, PWAs, CSS

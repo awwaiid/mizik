@@ -40,7 +40,9 @@
         </button>
       </div>
       <div class="popup game-start" v-if="!gameStarted">
-        <p>Follow the sequence!</p>
+        <p>Repeat the chain!</p>
+        <p>Use the sounds to remember.</p>
+        <p>Extra points when the chain doubles back!</p>
         <button @click="startOver">
           Start Game
         </button>
@@ -99,6 +101,7 @@ export default {
       currentPlaying: [],
       winning: true,
       score: 0,
+      runScore: 0,
       leaderBoard: []
     };
   },
@@ -155,6 +158,7 @@ export default {
       this.addNote();
       this.currentPlaying = this.current.slice();
       this.playNext(200);
+      this.runScore = 0;
     },
     playNext(speed) {
       let note = this.currentPlaying.shift();
@@ -190,13 +194,20 @@ export default {
         .then(() => this.loadHighScores());
       this.startOver();
     },
-    addHistory(note) {
+    addHistory(note, count) {
       this.noteHistory.push(note);
       this.winning = this.noteHistory.every(
         (value, index) => value == this.current[index]
       );
+      if (this.winning) {
+        this.runScore += count;
+        console.log(
+          `That was worth ${count} points. Run score: ${this.runScore}`
+        );
+      }
       if (this.winning && this.noteHistory.length == this.current.length) {
-        this.score = this.noteHistory.length;
+        this.score = this.runScore;
+        console.log(`New score: ${this.score}`);
         setTimeout(() => this.playSequence(), 1000);
       }
       if (!this.winning) {
