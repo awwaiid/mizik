@@ -103,7 +103,7 @@ export default {
     },
     onTouchStart() {
       console.log("touch start", this.note);
-      this.$emit("clicked", this.note);
+      this.$emit("clicked", this.note, this.count);
       this.isActive = true;
       this.count--;
       if (this.count <= 0) {
