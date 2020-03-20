@@ -179,12 +179,18 @@ export default {
     async loadHighScores() {
       const query = new Parse.Query(GameScore);
       query.descending("score");
-      query.limit(50);
+      query.limit(200);
       const results = await query.find();
       this.leaderBoard = results.map(r => ({
-        playerName: r.get("playerName"),
-        score: r.get("score")
+        playerName: r.get("playerName") || "",
+        score: r.get("score") || 0
       }));
+      this.leaderBoard = this.leaderBoard.filter(
+        (a, b) =>
+          this.leaderBoard.findIndex(
+            e => e.playerName.toUpperCase() == a.playerName.toUpperCase()
+          ) == b
+      );
     },
     saveScore() {
       let gameScore = new GameScore();
