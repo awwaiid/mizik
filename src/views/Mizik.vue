@@ -268,9 +268,9 @@ export default {
 
   .popup {
     position: absolute;
-    top: 50%;
+    top: 5em;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%);
     padding: 1em;
     border: 1px solid black;
     color: #2c3e50;
