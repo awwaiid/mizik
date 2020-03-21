@@ -5,8 +5,7 @@
         v-touch:start="onTouchStart"
         v-touch:end="onTouchEnd"
         v-touch="onTouch"
-        :style="{ backgroundColor: countColor }"
-        :class="{ active: isActive }"
+        :class="{ ['color-level-' + count]: true, active: isActive }"
       >
         <span v-if="showCount">{{
           this.$data.count > 0 ? this.$data.count : "\xa0"
@@ -168,6 +167,7 @@ export default {
     unTrigger() {
       console.log("force clear");
       this.isActive = false;
+      this.count = 0;
       setTimeout(() => this.synth.triggerRelease());
     },
     reset() {
@@ -180,6 +180,48 @@ export default {
 
 <style scoped lang="scss">
 .active {
-  background-color: #d9cd27;
+  background-color: #d9cd27 !important;
+}
+.color-level-1 {
+  background-color: #51e2ec;
+}
+.color-level-2 {
+  background-color: #31c2cc;
+}
+.color-level-3 {
+  background-color: #11a2ac;
+}
+.color-level-4 {
+  background-color: #01828c;
+}
+.color-level-5 {
+  background-color: #01a26c;
+}
+.color-level-6 {
+  background-color: #01a24c;
+}
+.color-level-7 {
+  background-color: #01c24c;
+}
+.color-level-8 {
+  background-color: #01e24c;
+}
+.color-level-9 {
+  background-color: #01e26c;
+}
+.color-level-10 {
+  background-color: #01e28c;
+}
+.color-level-11 {
+  background-color: #01e2ac;
+}
+.color-level-12 {
+  background-color: #01e2cc;
+}
+.color-level-13 {
+  background-color: #21e2cc;
+}
+.color-level-14 {
+  background-color: #41e2cc;
 }
 </style>

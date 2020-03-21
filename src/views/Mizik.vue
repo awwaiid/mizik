@@ -147,7 +147,7 @@ export default {
 
       this.current = [];
       this.score = 0;
-      this.$refs.button.forEach(button => button.reset());
+      this.$refs.button.forEach(button => button.unTrigger());
       this.gameStarted = true;
       this.playSequence();
     },
