@@ -33,7 +33,7 @@
         <a href="https://github.com/awwaiid/mizik/">GitHub Project</a> for more
         info.
       </div>
-      <div class="history">
+      <div class="history" v-if="showHistory">
         <div v-for="note in noteHistory" v-bind:key="note.id">
           <HexButton>
             <div class="hmm">{{ note }}</div>
@@ -54,8 +54,9 @@ export default {
     return {
       showAllKeys: false,
       showCounts: false,
+      showHistory: false,
       noteHistory: [],
-      layout: [
+      layoutFull: [
         [
           { note: 70, label: "Gb", color: "black" },
           { note: 72, label: "Ab", color: "black" },
@@ -182,8 +183,53 @@ export default {
           { note: 24, label: "G#", color: "black" },
           { note: 26, label: "A#", color: "black" }
         ]
+      ],
+      layoutSmall: [
+        [
+          { note: 57, label: "F", color: "white" },
+          { note: 59, label: "G", color: "white" },
+          { note: 61, label: "A", color: "white" },
+          { note: 63, label: "B", color: "white" },
+          { note: 65, label: "C#", color: "black" },
+          { note: 67, label: "D#", color: "black" }
+        ],
+        [
+          { note: 52, label: "C", color: "white" },
+          { note: 54, label: "D", color: "white" },
+          { note: 56, label: "E", color: "white" },
+          { note: 58, label: "F#", color: "black" },
+          { note: 60, label: "G#", color: "black" }
+        ],
+        [
+          { note: 45, label: "F", color: "white" },
+          { note: 47, label: "G", color: "white" },
+          { note: 49, label: "A", color: "white" },
+          { note: 51, label: "B", color: "white" },
+          { note: 53, label: "C#", color: "black" },
+          { note: 55, label: "D#", color: "black" }
+        ],
+        [
+          { note: 40, label: "C", color: "white" },
+          { note: 42, label: "D", color: "white" },
+          { note: 44, label: "E", color: "white" },
+          { note: 46, label: "F#", color: "black" },
+          { note: 48, label: "G#", color: "black" }
+        ],
+        [
+          { note: 33, label: "F", color: "white" },
+          { note: 35, label: "G", color: "white" },
+          { note: 37, label: "A", color: "white" },
+          { note: 39, label: "B", color: "white" },
+          { note: 41, label: "C#", color: "black" },
+          { note: 43, label: "D#", color: "black" }
+        ]
       ]
     };
+  },
+  computed: {
+    layout() {
+      return this.showAllKeys ? this.layoutFull : this.layoutSmall;
+    }
   },
   components: {
     TriggerButton,
@@ -204,12 +250,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 
-  * {
+  *:not(input) {
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
 
-  --hexagon-radius: 5vmin;
+  --hexagon-radius: 9vmin;
 
   .button-row {
     display: flex;
@@ -218,9 +264,9 @@ export default {
   }
 
   .hexagon {
-    margin: 2px;
+    margin: 1vmin;
     --background-color: #ccf;
-    --hexagon-radius: 5vmin;
+    --hexagon-radius: 9vmin;
   }
 
   .black-key .hexagon {
