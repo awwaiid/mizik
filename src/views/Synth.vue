@@ -7,7 +7,6 @@
           v-bind:key="button.id"
           ref="button"
           :note="button.note"
-          :show-count="showCounts"
           :label="button.label"
           @clicked="addHistory"
           :class="{ 'black-key': button.color == 'black' }"
@@ -20,12 +19,6 @@
         <label>
           <input type="checkbox" v-model="showAllKeys" />
           Show all keys
-        </label>
-      </div>
-      <div>
-        <label>
-          <input type="checkbox" v-model="showCounts" />
-          Show click counts
         </label>
       </div>
       <div>
@@ -53,7 +46,6 @@ export default {
   data() {
     return {
       showAllKeys: false,
-      showCounts: false,
       showHistory: false,
       noteHistory: [],
       layoutFull: [
