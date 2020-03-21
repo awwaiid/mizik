@@ -30,6 +30,12 @@ const routes = [
     name: "mizik",
     component: () =>
       import(/* webpackChunkName: "synth" */ "../views/Mizik.vue")
+  },
+  {
+    path: "/leaders",
+    name: "leaders",
+    component: () =>
+      import(/* webpackChunkName: "leaders" */ "../views/Leaders.vue")
   }
 ];
 

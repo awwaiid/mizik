@@ -56,7 +56,6 @@
           </HexButton>
         </div>
       </div>
-      <LeaderBoard :leaders="leaderBoard" />
     </div>
   </div>
 </template>
@@ -66,7 +65,6 @@ import * as Tone from "tone";
 
 import TriggerButton from "@/components/TriggerButton.vue";
 import HexButton from "@/components/HexButton.vue";
-import LeaderBoard from "@/components/LeaderBoard.vue";
 
 // Handy library for doing hex-grid calculations
 const Honeycomb = require("honeycomb-grid");
@@ -103,18 +101,15 @@ export default {
       currentPlaying: [],
       winning: true,
       score: 0,
-      runScore: 0,
-      leaderBoard: []
+      runScore: 0
     };
   },
   components: {
     TriggerButton,
-    HexButton,
-    LeaderBoard
+    HexButton
   },
   created() {
     this.initializeGrid();
-    this.loadHighScores();
   },
   methods: {
     initializeGrid() {
@@ -176,30 +171,14 @@ export default {
         setTimeout(() => this.playNext(speed), speed);
       }
     },
-    async loadHighScores() {
-      const query = new Parse.Query(GameScore);
-      query.descending("score");
-      query.limit(200);
-      const results = await query.find();
-      this.leaderBoard = results.map(r => ({
-        playerName: r.get("playerName") || "",
-        score: r.get("score") || 0
-      }));
-      this.leaderBoard = this.leaderBoard.filter(
-        (a, b) =>
-          this.leaderBoard.findIndex(
-            e => e.playerName.toUpperCase() == a.playerName.toUpperCase()
-          ) == b
-      );
-    },
     saveScore() {
       let gameScore = new GameScore();
-      gameScore
-        .save({
-          playerName: this.playerName,
-          score: this.score
-        })
-        .then(() => this.loadHighScores());
+      gameScore.save({
+        playerName: this.playerName,
+        score: this.score,
+        sequence: this.current,
+        timestamp: Date.now()
+      });
       this.startOver();
     },
     addHistory(note, count) {

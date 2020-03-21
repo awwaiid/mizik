@@ -1,6 +1,5 @@
 <template>
   <div class="leader-board">
-    <h2>Leader Board</h2>
     <div class="leader-board-grid">
       <div class="entry" v-for="(record, index) in leaders" :key="record.id">
         <div class="rank">{{ index + 1 }}.</div>
@@ -43,6 +42,7 @@ export default {
     text-align: left;
     display: grid;
     grid-template-columns: 1fr 2fr 2fr;
+    font-size: 10px;
     /* border: 1px solid #ccc; */
 
     .rank {

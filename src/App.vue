@@ -5,6 +5,7 @@
         <img alt="Mizik logo" src="@/assets/mizik-logo-02.png" class="logo" />
       </router-link>
       <router-link to="/mizik">Play Mizik</router-link> |
+      <router-link to="/leaders">Leader Board</router-link> |
       <router-link to="/synth">Synth</router-link>
     </div>
     <transition name="fade">
