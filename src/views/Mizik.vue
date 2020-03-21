@@ -121,6 +121,8 @@ export default {
           this.grid.push(Hex(colNum, rowNum));
         });
       });
+
+      // Build adjacency list
       this.adjacent = {};
       let me = this; // WHY do I have to do this? Doesn't => take care of it?
       this.layout.forEach((row, rowNum) => {
