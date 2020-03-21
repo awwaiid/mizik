@@ -124,6 +124,7 @@ export default {
       //   this.isActive = false;
       // }
       if (!(this.duration > 0)) {
+        this.isActive = false;
         console.log("onTouchEnd synth release");
         this.synth.triggerRelease();
       }
@@ -147,7 +148,7 @@ export default {
       }
     },
     trigger(duration, incrementCount = true) {
-      // this.isActive = true;
+      this.isActive = true;
       if (incrementCount) {
         this.count++;
       }
@@ -158,6 +159,7 @@ export default {
           this.noteToFreq(this.$props.note),
           duration
         );
+        setTimeout(() => (this.isActive = false), duration * 1000);
       } else {
         console.log("Trigger, NO release");
         this.synth.triggerAttack(this.noteToFreq(this.$props.note));
@@ -178,6 +180,6 @@ export default {
 
 <style scoped lang="scss">
 .active {
-  background-color: #51e2ec;
+  background-color: #d9cd27;
 }
 </style>
