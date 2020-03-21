@@ -76,9 +76,10 @@ export default {
     }
   },
   created() {
+    let limiter = new Tone.Limiter(-2);
     this.synth = new Tone.Synth({
       oscillator: {
-        type: "square"
+        type: "sine"
       },
       envelope: {
         attack: 0.001,
@@ -86,7 +87,8 @@ export default {
         sustain: 0.3,
         release: 1
       }
-    }).toMaster();
+    }).chain(limiter, Tone.Master);
+    this.synth.volume.value = -15;
   },
   methods: {
     noteToFreq(note) {
