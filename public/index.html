@@ -8,12 +8,23 @@
     <meta name="viewport" content="width=device-width,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>Mizik</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-26H9GVS4MF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-26H9GVS4MF');
+    </script>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but Mizik doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      Mizik is a game of memory, pattern, sound, and color. Mizik will
+      play a chain of sounds, and then you repeat it back. Bonus points when the
+      snaking doubles-back!
     </noscript>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
   </body>
 </html>
