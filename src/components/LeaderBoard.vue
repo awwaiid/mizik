@@ -4,7 +4,10 @@
       <div class="entry" v-for="(record, index) in leaders" :key="record.id">
         <div class="rank">{{ index + 1 }}.</div>
         <div class="playerName">{{ record.playerName }}</div>
-        <div class="score">({{ record.score }} pts)</div>
+        <div class="score">
+          ({{ record.score }} pts {{ record.createdAt }};
+          {{ record.gameCount }} games)
+        </div>
       </div>
     </div>
   </div>
@@ -27,14 +30,14 @@ export default {
 
 .leader-board-grid {
   margin: auto;
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows:
     1fr 1fr 1fr 1fr 1fr
     1fr 1fr 1fr 1fr 1fr
     1fr 1fr 1fr 1fr 1fr
     1fr 1fr 1fr 1fr 1fr
-    1fr 1fr 1fr 1fr 1fr;
+    1fr 1fr 1fr 1fr 1fr; */
   grid-auto-flow: column;
   width: 90%;
 

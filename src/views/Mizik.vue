@@ -176,7 +176,7 @@ export default {
     saveScore() {
       let gameScore = new GameScore();
       gameScore.save({
-        playerName: this.playerName,
+        playerName: this.playerName || "anonymous",
         score: this.score,
         sequence: this.current,
         timestamp: Date.now()
