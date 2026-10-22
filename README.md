@@ -53,5 +53,12 @@ yarn lint
 
 # Deploy to demo site (github pages repo, force-push)
 ./deploy
+
+# Headless Chrome integration tests against the build (see e2e/README.md)
+cd e2e && npm install && npm test
 ```
+
+The same tests run in GitHub Actions on every push and pull request,
+including dependabot's, so a library bump that breaks the game shows up as a
+red check.
 

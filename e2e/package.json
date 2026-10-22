@@ -1,0 +1,13 @@
+{
+  "name": "mizik-e2e",
+  "private": true,
+  "description": "Headless Chrome integration tests for the mizik game and score server",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}
