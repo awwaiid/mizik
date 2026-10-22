@@ -74,10 +74,7 @@ const Hex = Honeycomb.extendHex();
 // Question: How does one secure a webapp-based scoring system?
 // Doesn't seem like there is a way to prevent fake scores from
 // being posted. We'll go with trust for now!
-const Parse = require("parse");
-Parse.initialize("myappID");
-Parse.serverURL = "https://thelackthereof.org/parse";
-const GameScore = Parse.Object.extend("GameScore");
+import { saveScore } from "@/scores";
 
 export default {
   name: "mizik",
@@ -174,8 +171,7 @@ export default {
       }
     },
     saveScore() {
-      let gameScore = new GameScore();
-      gameScore.save({
+      saveScore({
         playerName: this.playerName || "anonymous",
         score: this.score,
         sequence: this.current,

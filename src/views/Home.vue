@@ -18,7 +18,7 @@
     <p>
       Mizik is an open-source project, part of a series of experiments in web
       techology. It is a play of VueJS, WebAudio via ToneJS, PWAs, CSS
-      techniques, Parse, and more.
+      techniques, a tiny sqlite score server, and more.
     </p>
     <p>
       Please join us in the fun over at
