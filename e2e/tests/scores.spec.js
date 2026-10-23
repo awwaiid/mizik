@@ -6,6 +6,9 @@ const {
   expectClean
 } = require("./helpers");
 
+// A legal 40-note chain (42 and 44 are adjacent) whose ceiling (460) clears every real score.
+const CHAIN = Array.from({ length: 40 }, (_, i) => (i % 2 ? 44 : 42));
+
 test("score server health and leaderboards", async ({ request }) => {
   const health = await (await request.get(`${SCORES_URL}/health`)).json();
   expect(health.ok).toBe(true);
@@ -95,13 +98,13 @@ test("player names are normalized on write", async ({ request }) => {
   const post = async (playerName, score) => {
     const r = await request.post(`${SCORES_URL}/scores`, {
       headers: { "content-type": "text/plain" },
-      data: JSON.stringify({ playerName, score, sequence: [1], timestamp: 1 })
+      data: JSON.stringify({ playerName, score, sequence: CHAIN, timestamp: 1 })
     });
     expect(r.status()).toBe(201);
     return (await r.json()).id;
   };
   // each case gets a unique score so it has its own leaderboard row
-  const base = 9000 + (Date.now() % 500);
+  const base = 300 + (Date.now() % 100);
   const cases = [
     ["   ", base + 1, "anonymous"],
     ["", base + 2, "anonymous"],
@@ -112,7 +115,10 @@ test("player names are normalized on write", async ({ request }) => {
   for (const [name, score] of cases) await post(name, score);
   // the export has every score, with the cleaned name stored
   const dump = await (await request.get(`${SCORES_URL}/scores.jsonl`)).text();
-  const lines = dump.trim().split("\n").map(l => JSON.parse(l));
+  const lines = dump
+    .trim()
+    .split("\n")
+    .map(l => JSON.parse(l));
   for (const [, score, expected] of cases) {
     const row = lines.find(l => l.score === score);
     expect(row, `row for ${JSON.stringify(expected)}`).toBeTruthy();
@@ -136,7 +142,7 @@ test("hostile player names render as text, not HTML", async ({
   request
 }) => {
   test.skip(LIVE_SCORES, "would write real scores to the live server");
-  const score = 9600 + (Date.now() % 300);
+  const score = 200 + (Date.now() % 40);
   const names = [
     `<img src=x onerror=alert(1)>`,
     "<b>bold</b><script>1</script>",
@@ -149,7 +155,7 @@ test("hostile player names render as text, not HTML", async ({
       data: JSON.stringify({
         playerName: names[i],
         score: score - i,
-        sequence: [1],
+        sequence: CHAIN,
         timestamp: 1
       })
     });
@@ -180,4 +186,93 @@ test("hostile player names render as text, not HTML", async ({
   expect(await board.locator("img[src='x'], script, b").count()).toBe(0);
   expect(dialogs).toBe(0);
   await expectClean(page);
+});
+
+test("forged or malformed scores are rejected, never a 5xx", async ({
+  request
+}) => {
+  test.skip(LIVE_SCORES, "would write real scores to the live server");
+  const post = (data, headers = {}) =>
+    request.post(`${SCORES_URL}/scores`, {
+      headers: { "content-type": "text/plain", ...headers },
+      data: typeof data === "string" ? data : JSON.stringify(data)
+    });
+  const ok = {
+    playerName: "zz-audit",
+    score: 3,
+    sequence: [42, 44, 42],
+    timestamp: 1
+  };
+  expect((await post(ok)).status()).toBe(201);
+  const cases = [
+    ["score above what the chain can earn", { ...ok, score: 8 }],
+    ["score above the ceiling", { ...ok, score: 9999, sequence: [42] }],
+    ["note not on the board", { ...ok, sequence: [42, 1] }],
+    ["non-adjacent notes", { ...ok, sequence: [37, 63] }],
+    ["boolean in sequence", { ...ok, sequence: [true] }],
+    ["chain too long", { ...ok, sequence: Array(101).fill(42), score: 0 }],
+    [
+      "NaN timestamp",
+      '{"playerName":"zz","score":0,"sequence":[],"timestamp":NaN}'
+    ],
+    [
+      "infinite timestamp",
+      '{"playerName":"zz","score":0,"sequence":[],"timestamp":Infinity}'
+    ],
+    ["string score", { ...ok, score: "3" }],
+    ["not json", "nope"]
+  ];
+  for (const [label, body] of cases) {
+    const r = await post(body);
+    expect(r.status(), label).toBe(400);
+    expect(r.headers()["content-type"], label).toBe("application/json");
+  }
+  // a foreign web page cannot post from the browser
+  const r = await post(ok, { origin: "https://evil.example" });
+  expect(r.status()).toBe(403);
+  for (const origin of ["https://mizikgame.com", "http://localhost:8080"]) {
+    expect((await post(ok, { origin })).status(), origin).toBe(201);
+  }
+  // absurd leaderboard window is clamped, not an error
+  const big = await request.get(`${SCORES_URL}/leaders?days=99999999999999`);
+  expect(big.status()).toBe(200);
+  // bad content-length header
+  const badLen = await request.post(`${SCORES_URL}/scores`, {
+    headers: { "content-type": "text/plain", "content-length": "abc" },
+    data: "{}"
+  });
+  expect([400, 413]).toContain(badLen.status());
+});
+
+test("posting is rate limited per client", async ({ request }) => {
+  test.skip(LIVE_SCORES, "would write real scores to the live server");
+  const body = {
+    playerName: "zz-flood",
+    score: 0,
+    sequence: [42],
+    timestamp: 1
+  };
+  const headers = {
+    "content-type": "text/plain",
+    "x-forwarded-for": "203.0.113.9"
+  };
+  const codes = [];
+  for (let i = 0; i < 65; i++) {
+    codes.push(
+      (
+        await request.post(`${SCORES_URL}/scores`, {
+          headers,
+          data: JSON.stringify(body)
+        })
+      ).status()
+    );
+  }
+  expect(codes.filter(c => c === 201)).toHaveLength(60);
+  expect(codes.slice(60).every(c => c === 429)).toBe(true);
+  // another client is unaffected
+  const other = await request.post(`${SCORES_URL}/scores`, {
+    headers: { ...headers, "x-forwarded-for": "203.0.113.10" },
+    data: JSON.stringify(body)
+  });
+  expect(other.status()).toBe(201);
 });
