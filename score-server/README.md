@@ -17,6 +17,12 @@ October 2026.
 Post with `Content-Type: text/plain` from the browser: it is a CORS "simple
 request", so no preflight. Scores are append-only; there is no update or delete.
 
+Player names are stored as plain text: control characters dropped, whitespace
+trimmed, cut at 32 characters, and a blank name becomes `anonymous`. The same
+cleaning runs over existing rows at startup, so an old database is folded on
+the first boot of a new version. Responses are JSON only (`nosniff`), and the
+client renders names with Vue text interpolation, so a name is never HTML.
+
 ## Data
 
 `data/scores.jsonl` is the committed copy of every score. The container seeds

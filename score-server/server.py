@@ -12,6 +12,7 @@ import os
 import secrets
 import sqlite3
 import sys
+import unicodedata
 from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
@@ -20,6 +21,7 @@ DB = os.environ.get("SCORES_DB", "/data/scores.db")
 SEED = os.environ.get("SCORES_SEED", os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "scores.jsonl"))
 PORT = int(os.environ.get("PORT", "8080"))
 MAX_BODY, MAX_NAME, MAX_SCORE, MAX_SEQ = 8192, 32, 10000, 200
+ANON = "anonymous"
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS scores (
@@ -40,7 +42,7 @@ SELECT player_name, score, created_at, games FROM (
   SELECT player_name, score, created_at,
          COUNT(*) OVER (PARTITION BY upper(player_name)) AS games,
          ROW_NUMBER() OVER (PARTITION BY upper(player_name) ORDER BY score DESC, created_at) AS rn
-  FROM scores WHERE player_name IS NOT NULL AND created_at > ?
+  FROM scores WHERE created_at > ?
 ) WHERE rn = 1 ORDER BY score DESC, created_at
 """
 
@@ -55,6 +57,15 @@ def iso(t):
     return t.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.") + "%03dZ" % (t.microsecond // 1000)
 
 
+def clean_name(name):
+    """Names are stored as plain text, never HTML: control characters dropped,
+    whitespace trimmed, cut at MAX_NAME; blank becomes "anonymous"."""
+    if not isinstance(name, str):
+        return ANON
+    name = "".join(c for c in name if unicodedata.category(c) != "Cc")
+    return name.strip()[:MAX_NAME].strip() or ANON
+
+
 def row_from(r):
     """Accept our own export format or a mongoexport of Parse's GameScore."""
     rid = r.get("id") or r.get("_id")
@@ -63,7 +74,7 @@ def row_from(r):
     created = r.get("createdAt") or (r.get("_created_at") or {}).get("$date")
     created = iso(datetime.fromisoformat(created.replace("Z", "+00:00")))
     ts = r.get("timestamp")
-    return (rid, r.get("playerName"), int(r["score"]), json.dumps(r.get("sequence") or []),
+    return (rid, clean_name(r.get("playerName")), int(r["score"]), json.dumps(r.get("sequence") or []),
             None if ts is None else int(ts), created)
 
 
@@ -89,6 +100,11 @@ def init():
     os.makedirs(os.path.dirname(os.path.abspath(DB)), exist_ok=True)
     with db() as conn:
         conn.executescript(SCHEMA)
+        dirty = [(clean_name(name), rid) for rid, name in conn.execute("SELECT id, player_name FROM scores")
+                 if clean_name(name) != name]
+        if dirty:
+            conn.executemany("UPDATE scores SET player_name = ? WHERE id = ?", dirty)
+            print("cleaned %d player names (blank -> %s, whitespace trimmed)" % (len(dirty), ANON), flush=True)
         n = conn.execute("SELECT count(*) FROM scores").fetchone()[0]
     if n == 0 and os.path.exists(SEED):
         with open(SEED) as f:
@@ -110,7 +126,7 @@ def validate(body):
         return None, "sequence must be a list of up to %d integers" % MAX_SEQ
     if ts is not None and not isinstance(ts, (int, float)):
         return None, "timestamp must be a number"
-    return (secrets.token_hex(8), name[:MAX_NAME], score, json.dumps(seq),
+    return (secrets.token_hex(8), clean_name(name), score, json.dumps(seq),
             None if ts is None else int(ts), iso(datetime.now(timezone.utc))), None
 
 
@@ -129,6 +145,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Cache-Control", "no-store")
         self.end_headers()
         self.wfile.write(body)
@@ -157,7 +174,7 @@ class Handler(BaseHTTPRequestHandler):
             with db() as conn:
                 rows = conn.execute(LEADERS, (since,)).fetchall()
             return self.send(200, {"leaders": [
-                {"playerName": name or "anonymous", "score": score, "gameCount": games, "createdAt": created}
+                {"playerName": name, "score": score, "gameCount": games, "createdAt": created}
                 for name, score, created, games in rows]})
         if path == "/scores.jsonl":
             import io
